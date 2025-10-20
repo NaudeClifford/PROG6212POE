@@ -1,19 +1,19 @@
 ﻿using PROG6212POE.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PROG6212POE.Services
 {
     public interface IClaimService
     {
-        public int AddClaim(Claims claim);
+        Task<int> AddClaimAsync(Claim claim);
 
-        public Claims GetClaim(int id);
+        Task<Claim?> GetClaimAsync(int id);
 
-        public List<Claims> GetClaims();
+        Task<List<Claim>> GetClaimsAsync();
 
-        public void SetApproval(int Id, bool status);
+        Task SetApprovalAsync(int id, bool isApproved);
 
-        public void submitClaim(Claims claim);
+        Task SubmitClaimAsync(Claim claim);
     }
-
-    
 }

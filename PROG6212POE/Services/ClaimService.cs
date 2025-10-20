@@ -1,47 +1,53 @@
-﻿using PROG6212POE.Models;
+﻿using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
+using PROG6212POE.Data;
+using Claim = PROG6212POE.Models.Claim;
 
 namespace PROG6212POE.Services
 {
     public class ClaimService : IClaimService
     {
-
         private readonly ClaimsDBContext _context;
 
-        public ClaimService(ClaimsDBContext claim)
+        public ClaimService(ClaimsDBContext context)
         {
-            this._context = claim;
+            _context = context;
         }
-        public int AddClaim(Claims claim)
+
+        // Adds a claim and returns the ID
+        public async Task<int> AddClaimAsync(Claim claim)
         {
-            _context.ClaimDB.Add(claim);
+            _context.Claims.Add(claim);
+            await _context.SaveChangesAsync();
             return claim.Id;
         }
 
-        public Claims GetClaim(int id)
+        public async Task<Claim?> GetClaimAsync(int id)
         {
-            var book = _context.ClaimDB.FirstOrDefault(x => x.Id == id);
-            return book!;
+            return await _context.Claims.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public List<Claims> GetClaims()
+        public async Task<List<Claim>> GetClaimsAsync()
         {
-            return _context.ClaimDB.ToList();
+            return await _context.Claims.ToListAsync();
         }
 
-        public void SetApproval(int Id, bool status)
+        public async Task SetApprovalAsync(int id, bool isApproved)
         {
-            var book = _context.ClaimDB.FirstOrDefault(x => x.Id == Id);
-            if (book != null)
+            var claim = await _context.Claims.FirstOrDefaultAsync(c => c.Id == id);
+            if (claim != null)
             {
-                book.Approval = status;
-                _context.SaveChanges();
+                claim.Status = isApproved ? "Approved" : "Rejected";
+                await _context.SaveChangesAsync();
             }
         }
 
-        public void submitClaim(Claims claim) 
+        public async Task SubmitClaimAsync(Claim claim)
         {
-        
-        
+            claim.Created = DateTime.Now;
+            claim.Status = "Pending";
+            _context.Claims.Add(claim);
+            await _context.SaveChangesAsync();
         }
     }
 }

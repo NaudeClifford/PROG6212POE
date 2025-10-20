@@ -1,34 +1,51 @@
-﻿using PROG6212POE.Models;
+﻿using PROG6212POE.Data;
+using PROG6212POE.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PROG6212POE.Services
 {
     public class LecturerService : ILecturerService
     {
-
         private readonly ClaimsDBContext _context;
 
-        public LecturerService(ClaimsDBContext claim)
+        public LecturerService(ClaimsDBContext context)
         {
-            this._context = claim;
+            _context = context;
         }
-        public int AddLecturer(Lecturers lecturer)
+
+        public async Task<int> AddLecturerAsync(Lecturers lecturer)
         {
-            _context.LecturerDB.Add(lecturer);
+            _context.Lecturers.Add(lecturer);
+            await _context.SaveChangesAsync();
             return lecturer.Id;
         }
 
-        public Lecturers GetLecturer(int id)
+        public async Task<Lecturers?> GetLecturerAsync(int id)
         {
-            var lecturer = _context.LecturerDB.FirstOrDefault(x => x.Id == id);
-            return lecturer!;
+            return await _context.Lecturers.FirstOrDefaultAsync(l => l.Id == id);
         }
 
-        public List<Lecturers> GetLecturers()
+        public async Task<List<Lecturers>> GetLecturersAsync()
         {
-            return _context.LecturerDB.ToList();
+            return await _context.Lecturers.ToListAsync();
         }
 
-        private void FinalPayment() { }
+        public async Task UpdateLecturerAsync(Lecturers lecturer)
+        {
+            _context.Lecturers.Update(lecturer);
+            await _context.SaveChangesAsync();
+        }
 
+        public async Task DeleteLecturerAsync(int id)
+        {
+            var lecturer = await _context.Lecturers.FindAsync(id);
+            if (lecturer != null)
+            {
+                _context.Lecturers.Remove(lecturer);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

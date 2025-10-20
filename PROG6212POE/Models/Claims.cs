@@ -1,24 +1,43 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace PROG6212POE.Models
 {
-    public class Claims
+    public class Claim
     {
-        [Key, Display(Name = "ID")]
+        [Key]
         public int Id { get; set; }
 
-        [Display(Name = "Name")]
-        public string Name { get; set; } = string.Empty;
+        // Link to User who submitted the claim
+        [Required]
+        public string UserId { get; set; } = string.Empty;
+        public User? User { get; set; } // navigation property
 
-        [Display(Name = "Description")]
-        public string Description { get; set; } = string.Empty;
+        [Required]
+        [Display(Name = "Hours Worked")]
+        [Range(0.5, 100)]
+        public double HoursWorked { get; set; }
 
-        [Display(Name = "Created")]
-        public DateTime Created { get; set; }
+        [Required]
+        [Display(Name = "Hourly Rate")]
+        [Range(10, 1000)]
+        public decimal HourlyRate { get; set; }
 
-        [Display(Name = "Approval")]
-        public Boolean Approval { get; set; }
-        
+        [NotMapped]
+        public decimal Total => (decimal)HoursWorked * HourlyRate;
 
+        [Display(Name = "Notes")]
+        public string? Notes { get; set; }
+
+        [Display(Name = "Date Submitted")]
+        public DateTime Created { get; set; } = DateTime.Now;
+
+        // File Upload
+        [Display(Name = "Document Path")]
+        public string? FilePath { get; set; }
+
+        [Display(Name = "Claim Status")]
+        public string Status { get; set; } = "Pending"; // Pending, Verified, Approved, Rejected
     }
 }

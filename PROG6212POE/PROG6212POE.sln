@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PROG6212POE", "PROG6212POE.csproj", "{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PROG6212POETest", "..\PROG6212POETest\PROG6212POETest.csproj", "{4F9CE7E6-C455-4174-B184-F7717F99B576}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F9CE7E6-C455-4174-B184-F7717F99B576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F9CE7E6-C455-4174-B184-F7717F99B576}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F9CE7E6-C455-4174-B184-F7717F99B576}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F9CE7E6-C455-4174-B184-F7717F99B576}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A1A43E0D-462B-4D0E-93CA-0EA1E06E9580}
 	EndGlobalSection
 EndGlobal

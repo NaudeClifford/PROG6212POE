@@ -25,6 +25,7 @@ namespace LibrarysPractice
             });
 
             //Dependency injection
+            builder.Services.AddScoped<IAdminService, AdminService>();
             builder.Services.AddScoped<ILecturerService, LecturerService>();
             builder.Services.AddScoped<IClaimService, ClaimService>();
 
@@ -62,8 +63,8 @@ namespace LibrarysPractice
                 db.Database.Migrate();
 
                 //Seeding
-                await ClaimSeeder.SeedAsync(app.Services);
-                await LecturerSeeder.SeedAsync(app.Services);
+                await UserSeeder.SeedAsync(app.Services);
+
             }
 
             // Configure the HTTP request pipeline.

@@ -1,16 +1,19 @@
 ﻿using PROG6212POE.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PROG6212POE.Services
 {
     public interface ILecturerService
     {
+        Task<int> AddLecturerAsync(Lecturers lecturer);
 
-        public int AddLecturer(Lecturers lecturer);
+        Task<Lecturers?> GetLecturerAsync(int id);
 
-        public Lecturers GetLecturer(int id);
+        Task<List<Lecturers>> GetLecturersAsync();
 
-        public List<Lecturers> GetLecturers();
+        Task UpdateLecturerAsync(Lecturers lecturer);
 
-
+        Task DeleteLecturerAsync(int id);
     }
 }

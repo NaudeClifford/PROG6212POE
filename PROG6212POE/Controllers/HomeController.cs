@@ -23,7 +23,7 @@ namespace LibrarysPractice.Controllers
         public IActionResult Index(int isLogged = 0)
         {
 
-            var claims = _claimService.GetClaims();
+            var claims = _claimService.GetClaimsAsync();
             
             return View(claims);
 

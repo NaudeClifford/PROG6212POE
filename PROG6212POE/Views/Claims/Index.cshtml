@@ -1,0 +1,65 @@
+﻿@model IEnumerable<PROG6212POE.Models.Claim>
+@{
+    ViewData["Title"] = "My Claims";
+}
+
+<h2 class="mb-4">My Claims</h2>
+
+<a asp-action="Create" class="btn btn-primary mb-3">Submit New Claim</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Hours</th>
+            <th>Rate</th>
+            <th>Notes</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Document</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var claim in Model)
+    {
+        <tr>
+            <td>@claim.HoursWorked</td>
+            <td>@claim.HourlyRate</td>
+            <td>@claim.Notes</td>
+            <td>
+                @* Progress bar for status *@
+                <div class="progress" style="height: 20px;">
+                    @{
+                        var status = claim.Status?.ToLower();
+                        var width = status == "approved" ? 100 :
+                                    status == "verified" ? 66 :
+                                    status == "pending" ? 33 :
+                                    0;
+
+                        var bgColor = status switch
+                        {
+                            "approved" => "bg-success",
+                            "verified" => "bg-info",
+                            "pending" => "bg-warning",
+                            "rejected" => "bg-danger",
+                            _ => "bg-secondary"
+                        };
+                    }
+                    <div class="progress-bar @bgColor" role="progressbar" style="width: @width%;">@claim.Status</div>
+                </div>
+            </td>
+            <td>@claim.Created.ToShortDateString()</td>
+            <td>
+                @if (!string.IsNullOrEmpty(claim.FilePath))
+                {
+                    <a asp-action="DownloadFile" asp-route-fileName="@claim.FilePath" class="btn btn-sm btn-outline-secondary">Download</a>
+                }
+                else
+                {
+                    <span class="text-muted">No file</span>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
