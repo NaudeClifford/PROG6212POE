@@ -44,10 +44,11 @@ namespace PROG6212POE.Services
 
         public async Task SubmitClaimAsync(Claim claim)
         {
-            claim.Created = DateTime.Now;
             claim.Status = "Pending";
+            claim.Created = DateTime.UtcNow;  // should be UtcNow to match test assertion
             _context.Claims.Add(claim);
             await _context.SaveChangesAsync();
         }
+
     }
 }

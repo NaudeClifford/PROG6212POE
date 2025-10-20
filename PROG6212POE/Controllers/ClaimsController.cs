@@ -85,6 +85,7 @@ namespace PROG6212POE.Controllers
 
                 using (var stream = model.Document.OpenReadStream())
                 {
+
                     await FileEncryptionHelper.EncryptFileAsync(stream, filePath);
                 }
 
@@ -114,9 +115,28 @@ namespace PROG6212POE.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Cancel(int id)
+        {
+            var userId = _userManager.GetUserId(User);
+            var claim = _context.Claims.FirstOrDefault(c => c.Id == id && c.UserId == userId);
+
+            if (claim == null)
+                return NotFound();
+
+            // Allow cancelling only if status is Pending
+            if (claim.Status != "Pending")
+                return BadRequest("Only pending claims can be cancelled.");
+
+            claim.Status = "Cancelled";
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
 
         // GET: /Claims/DownloadFile?fileName=xxx
-        [Authorize(Roles = "Lecturer,ProgrammeCoordinator,AdcademicManager")]
+        [Authorize(Roles = "Lecturer,ProgrammeCoordinator,AcademicManager")]
         public async Task<IActionResult> DownloadFile(string fileName)
         {
             if (string.IsNullOrEmpty(fileName))
@@ -125,10 +145,13 @@ namespace PROG6212POE.Controllers
             var uploadsFolder = Path.Combine(_env.ContentRootPath, "EncryptedUploads");
             var filePath = Path.Combine(uploadsFolder, fileName);
 
-            if (!System.IO.File.Exists(filePath))
-                return NotFound();
+            if (!System.IO.File.Exists(filePath) || new FileInfo(filePath).Length == 0)
+            {
+                return NotFound(); // or throw a descriptive error
+            }
 
             var memoryStream = new MemoryStream();
+
             await FileEncryptionHelper.DecryptFileAsync(filePath, memoryStream);
             memoryStream.Position = 0;
 

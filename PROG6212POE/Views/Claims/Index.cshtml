@@ -10,56 +10,81 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>Description</th>
             <th>Hours</th>
             <th>Rate</th>
             <th>Notes</th>
             <th>Status</th>
             <th>Date</th>
             <th>Document</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
-    @foreach (var claim in Model)
-    {
-        <tr>
-            <td>@claim.HoursWorked</td>
-            <td>@claim.HourlyRate</td>
-            <td>@claim.Notes</td>
-            <td>
-                @* Progress bar for status *@
-                <div class="progress" style="height: 20px;">
+        @foreach (var claim in Model)
+        {
+            <tr>
+                <td>@claim.HoursWorked</td>
+                <td>@claim.HourlyRate.ToString("C")</td>
+                <td>@claim.Notes</td>
+                <td>
+                    @* Progress bar with readable text *@
                     @{
                         var status = claim.Status?.ToLower();
                         var width = status == "approved" ? 100 :
-                                    status == "verified" ? 66 :
-                                    status == "pending" ? 33 :
-                                    0;
+                        status == "verified" ? 66 :
+                        status == "pending" ? 33 :
+                        status == "rejected" ? 100 :
+                        0;
 
                         var bgColor = status switch
                         {
                             "approved" => "bg-success",
                             "verified" => "bg-info",
-                            "pending" => "bg-warning",
+                            "pending" => "bg-warning text-dark",
                             "rejected" => "bg-danger",
                             _ => "bg-secondary"
                         };
                     }
-                    <div class="progress-bar @bgColor" role="progressbar" style="width: @width%;">@claim.Status</div>
-                </div>
-            </td>
-            <td>@claim.Created.ToShortDateString()</td>
-            <td>
-                @if (!string.IsNullOrEmpty(claim.FilePath))
-                {
-                    <a asp-action="DownloadFile" asp-route-fileName="@claim.FilePath" class="btn btn-sm btn-outline-secondary">Download</a>
-                }
-                else
-                {
-                    <span class="text-muted">No file</span>
-                }
-            </td>
-        </tr>
-    }
+
+                    <div class="d-flex align-items-center">
+                        <div class="progress w-100 me-2" style="height: 20px;">
+                            <div class="progress-bar @bgColor text-start px-2" role="progressbar" style="width: @width%;">
+                                @if (width > 20)
+                                {
+                                    @claim.Status
+                                }
+                            </div>
+                        </div>
+                        <span class="ms-2 fw-semibold">@claim.Status</span>
+                    </div>
+                </td>
+                <td>@claim.Created.ToShortDateString()</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(claim.FilePath))
+                    {
+                        <a asp-action="DownloadFile" asp-route-fileName="@claim.FilePath" class="btn btn-sm btn-outline-secondary">Download</a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">No file</span>
+                    }
+                </td>
+                <td>
+                    @if (claim.Status == "Pending")
+                    {
+                        <form asp-action="Cancel" asp-route-id="@claim.Id" method="post" style="display:inline"
+                              onsubmit="return confirm('Are you sure you want to cancel this claim?');">
+                            <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+
+            </tr>
+        }
+
     </tbody>
 </table>

@@ -5,7 +5,6 @@ namespace PROG6212POE.Models
     public class FileUploadModel
     {
 
-        [Required]
         [Display(Name = "Document")]
         public IFormFile? Document { get; set; }
 

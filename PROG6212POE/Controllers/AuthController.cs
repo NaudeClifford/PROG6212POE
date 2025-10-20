@@ -37,42 +37,37 @@ namespace PROG6212POE.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl;
             if (!ModelState.IsValid)
-            {
                 return View(model);
-            }
 
-            // Support login using email or username
             var user = await _userManager.FindByNameAsync(model.UserNameOrEmail);
+
             if (user == null && model.UserNameOrEmail.Contains("@"))
             {
                 user = await _userManager.FindByEmailAsync(model.UserNameOrEmail);
             }
 
-            if (user == null)
+            if (user != null)
             {
-                ModelState.AddModelError(string.Empty, "Invalid credentials.");
-                return View(model);
+                var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+                if (result.Succeeded)
+                {
+                    // Check role and redirect
+                    if (await _userManager.IsInRoleAsync(user, "AcademicManager"))
+                        return RedirectToAction("ManagerView", "Admin");
+
+                    if (await _userManager.IsInRoleAsync(user, "ProgrammeCoordinator"))
+                        return RedirectToAction("CoordinatorView", "Admin");
+
+                    if (await _userManager.IsInRoleAsync(user, "Lecturer"))
+                        return RedirectToAction("Index", "Claims");
+
+                    // Default fallback
+                    return RedirectToAction("Index", "Home");
+                }
             }
 
-            var result = await _signInManager.PasswordSignInAsync(user.UserName!, model.Password, model.RememberMe, lockoutOnFailure: false);
-            if (result.Succeeded)
-            {
-                if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
-                    return Redirect(returnUrl);
-                return RedirectToAction("Index", "Home");
-            }
-
-            if (result.IsLockedOut)
-            {
-                ModelState.AddModelError(string.Empty, "Account locked out.");
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, "Invalid credentials.");
-            }
-
+            ModelState.AddModelError("", "Invalid login attempt");
             return View(model);
         }
     }
