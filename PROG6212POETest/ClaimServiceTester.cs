@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PROG6212POE.Data;
 using PROG6212POE.Models;
 using PROG6212POE.Services;
-using Xunit;
 
 public class ClaimServiceTests
 {
@@ -41,7 +36,6 @@ public class ClaimServiceTests
     [Fact]
     public async Task AddClaimAsync_ShouldAddClaim()
     {
-        // Arrange
         var context = await GetInMemoryDbContext();
         var service = new ClaimService(context);
 
@@ -54,11 +48,9 @@ public class ClaimServiceTests
             FilePath = "claim2.pdf"
         };
 
-        // Act
         var claimId = await service.AddClaimAsync(claim);
         var addedClaim = await service.GetClaimAsync(claimId);
 
-        // Assert
         Assert.NotNull(addedClaim);
         Assert.Equal("user456", addedClaim.UserId);
         Assert.Equal(5, addedClaim.HoursWorked);
@@ -67,14 +59,11 @@ public class ClaimServiceTests
     [Fact]
     public async Task GetClaimAsync_ShouldReturnClaim()
     {
-        // Arrange
         var context = await GetInMemoryDbContext();
         var service = new ClaimService(context);
 
-        // Act
         var claim = await service.GetClaimAsync(1);
 
-        // Assert
         Assert.NotNull(claim);
         Assert.Equal("user123", claim.UserId);
         Assert.Equal("Pending", claim.Status);
@@ -83,14 +72,11 @@ public class ClaimServiceTests
     [Fact]
     public async Task GetClaimsAsync_ShouldReturnAllClaims()
     {
-        // Arrange
         var context = await GetInMemoryDbContext();
         var service = new ClaimService(context);
 
-        // Act
         var claims = await service.GetClaimsAsync();
 
-        // Assert
         Assert.NotEmpty(claims);
         Assert.True(claims.Count >= 1);
     }
@@ -98,22 +84,18 @@ public class ClaimServiceTests
     [Fact]
     public async Task SetApprovalAsync_ShouldUpdateStatus()
     {
-        // Arrange
         var context = await GetInMemoryDbContext();
         var service = new ClaimService(context);
 
-        // Act
         await service.SetApprovalAsync(1, true);
         var updatedClaim = await service.GetClaimAsync(1);
 
-        // Assert
-        Assert.Equal("Approved", updatedClaim.Status);
+        Assert.Equal("Approved", updatedClaim?.Status);
     }
 
     [Fact]
     public async Task SubmitClaimAsync_ShouldSetCreatedAndStatus()
     {
-        // Arrange
         var context = await GetInMemoryDbContext();
         var service = new ClaimService(context);
         var newClaim = new Claim
@@ -125,11 +107,9 @@ public class ClaimServiceTests
             FilePath = "claim3.pdf"
         };
 
-        // Act
         await service.SubmitClaimAsync(newClaim);
         var submittedClaim = await context.Claims.FirstOrDefaultAsync(c => c.UserId == "user789");
-
-        // Assert
+        
         Assert.NotNull(submittedClaim);
         Assert.Equal("Pending", submittedClaim.Status);
         Assert.True(submittedClaim.Created <= DateTime.UtcNow);
