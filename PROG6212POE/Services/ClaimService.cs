@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PROG6212POE.Data;
 using Claim = PROG6212POE.Models.Claim;
 
@@ -49,6 +48,5 @@ namespace PROG6212POE.Services
             _context.Claims.Add(claim);
             await _context.SaveChangesAsync();
         }
-
     }
 }

@@ -25,16 +25,14 @@ namespace PROG6212POE.Controllers
             return View(new LoginViewModel());
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Auth");
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
         {
             if (!ModelState.IsValid)
@@ -50,6 +48,7 @@ namespace PROG6212POE.Controllers
             if (user != null)
             {
                 var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+                
                 if (result.Succeeded)
                 {
                     // Check role and redirect
@@ -62,7 +61,6 @@ namespace PROG6212POE.Controllers
                     if (await _userManager.IsInRoleAsync(user, "Lecturer"))
                         return RedirectToAction("Index", "Claims");
 
-                    // Default fallback
                     return RedirectToAction("Index", "Home");
                 }
             }

@@ -1,8 +1,6 @@
 ﻿using PROG6212POE.Data;
 using PROG6212POE.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PROG6212POE.Services
 {

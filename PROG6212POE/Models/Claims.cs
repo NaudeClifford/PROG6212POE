@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Identity;
 
 namespace PROG6212POE.Models
 {
@@ -12,16 +11,13 @@ namespace PROG6212POE.Models
         // Link to User who submitted the claim
         [Required]
         public string UserId { get; set; } = string.Empty;
+
         public User? User { get; set; } // navigation property
 
-        [Required]
-        [Display(Name = "Hours Worked")]
-        [Range(0.5, 100)]
+        [Required, Display(Name = "Hours Worked"), Range(0.5, 100)]
         public double HoursWorked { get; set; }
 
-        [Required]
-        [Display(Name = "Hourly Rate")]
-        [Range(10, 1000)]
+        [Required, Display(Name = "Hourly Rate"), Range(10, 1000)]
         public decimal HourlyRate { get; set; }
 
         [NotMapped]

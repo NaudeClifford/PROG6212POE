@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using PROG6212POE.Data;
 using PROG6212POE.Models;
 using PROG6212POE.Services;
@@ -57,6 +56,7 @@ namespace LibrarysPractice
 
             var app = builder.Build();
 
+            //Scope
             using (var scope = app.Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<ClaimsDBContext>();
@@ -71,7 +71,6 @@ namespace LibrarysPractice
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 

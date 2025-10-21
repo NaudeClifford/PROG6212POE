@@ -4,9 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using PROG6212POE.Data;
 using PROG6212POE.Models;
 using PROG6212POE.Models.ViewModels;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PROG6212POE.Controllers
 {
@@ -24,12 +21,10 @@ namespace PROG6212POE.Controllers
             _context = context;
         }
 
-        // GET: /Claims/Index
         public IActionResult Index()
         {
             var userId = _userManager.GetUserId(User);
 
-            // Get claims for the logged-in lecturer
             var claims = _context.Claims
                 .Where(c => c.UserId == userId)
                 .OrderByDescending(c => c.Created)
@@ -38,38 +33,37 @@ namespace PROG6212POE.Controllers
             return View(claims);
         }
 
-        // GET: /Claims/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: /Claims/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ClaimViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
-            // Check if file is attached
+            //Check if file is attached
             if (model.Document == null || model.Document.Length == 0)
             {
                 ModelState.AddModelError("Document", "Please upload a document.");
                 return View(model);
             }
 
-            // Check file size (limit: 5MB)
+            //Check file size (limit: 5MB)
             long maxSize = 5 * 1024 * 1024;
+            
             if (model.Document.Length > maxSize)
             {
                 ModelState.AddModelError("Document", "File size must be under 5MB.");
                 return View(model);
             }
 
-            // Check allowed types
+            //Check allowed types
             var extension = Path.GetExtension(model.Document.FileName).ToLower();
             var allowed = new[] { ".pdf", ".docx", ".xlsx" };
+            
             if (!allowed.Contains(extension))
             {
                 ModelState.AddModelError("Document", "Only PDF, DOCX, and XLSX files are allowed.");
@@ -106,17 +100,16 @@ namespace PROG6212POE.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // General fallback error
+
                 ModelState.AddModelError(string.Empty, "An error occurred while uploading the file. Please try again.");
-                // Optionally log: _logger.LogError(ex, "File upload failed");
+
                 return View(model);
             }
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Cancel(int id)
         {
             var userId = _userManager.GetUserId(User);
@@ -135,8 +128,8 @@ namespace PROG6212POE.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: /Claims/DownloadFile?fileName=xxx
-        [Authorize(Roles = "Lecturer,ProgrammeCoordinator,AcademicManager")]
+
+        [Authorize(Roles = "Lecturer, ProgrammeCoordinator, AcademicManager")]
         public async Task<IActionResult> DownloadFile(string fileName)
         {
             if (string.IsNullOrEmpty(fileName))
@@ -147,7 +140,7 @@ namespace PROG6212POE.Controllers
 
             if (!System.IO.File.Exists(filePath) || new FileInfo(filePath).Length == 0)
             {
-                return NotFound(); // or throw a descriptive error
+                return NotFound();
             }
 
             var memoryStream = new MemoryStream();

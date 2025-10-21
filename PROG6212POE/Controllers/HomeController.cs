@@ -8,16 +8,11 @@ namespace LibrarysPractice.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly ILecturerService _lecturerService;
         private readonly IClaimService _claimService;
 
-        public HomeController(ILogger<HomeController> logger, ILecturerService lecturerService, IClaimService claimService)
+        public HomeController(IClaimService claimService)
         {
-            _logger = logger;
-            _lecturerService = lecturerService;
             _claimService = claimService;
-
         }
 
         public IActionResult Index(int isLogged = 0)

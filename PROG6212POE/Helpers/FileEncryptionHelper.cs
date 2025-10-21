@@ -19,12 +19,11 @@ public static class FileEncryptionHelper
 
         await inputStream.CopyToAsync(cryptoStream);
 
-        // Explicitly flush the final block
+        //flush the block
         await cryptoStream.FlushAsync();
 
-        cryptoStream.FlushFinalBlock(); // <-- CRUCIAL for writing padding correctly
+        cryptoStream.FlushFinalBlock();
     }
-
 
     public static async Task DecryptFileAsync(string inputFilePath, Stream outputStream)
     {

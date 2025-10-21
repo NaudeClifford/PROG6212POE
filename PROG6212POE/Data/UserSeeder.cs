@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 using PROG6212POE.Models;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PROG6212POE.Data
 {
@@ -18,7 +14,7 @@ namespace PROG6212POE.Data
 
             string[] roles = { "AcademicManager", "ProgrammeCoordinator", "Lecturer" };
 
-            // 1. Ensure roles exist
+            //Check if roles exist
             foreach (var role in roles)
             {
                 if (!await roleManager.RoleExistsAsync(role))
@@ -32,9 +28,10 @@ namespace PROG6212POE.Data
                 }
             }
 
-            // 2. Seed Academic Manager
+            //Seed Academic Manager
             var managerEmail = "manager@system.local";
             var managerUser = await userManager.FindByEmailAsync(managerEmail);
+            
             if (managerUser == null)
             {
                 managerUser = new User
@@ -61,9 +58,10 @@ namespace PROG6212POE.Data
                 });
             }
 
-            // 3. Seed Programme Coordinator
+            //Seed Programme Coordinator
             var coordinatorEmail = "coordinator@system.local";
             var coordinatorUser = await userManager.FindByEmailAsync(coordinatorEmail);
+            
             if (coordinatorUser == null)
             {
                 coordinatorUser = new User
@@ -90,9 +88,10 @@ namespace PROG6212POE.Data
                 });
             }
 
-            // ✅ 4. Seed Lecturer
+            //Seed Lecturer
             var lecturerEmail = "lecturer@system.local";
             var lecturerUser = await userManager.FindByEmailAsync(lecturerEmail);
+            
             if (lecturerUser == null)
             {
                 lecturerUser = new User

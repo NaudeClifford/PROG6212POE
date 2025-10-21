@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PROG6212POE.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace PROG6212POE.Controllers
 {
@@ -15,7 +14,7 @@ namespace PROG6212POE.Controllers
             _context = context;
         }
 
-        // View for Programme Coordinator
+        //View for Programme Coordinator
         [Authorize(Roles = "ProgrammeCoordinator")]
         public IActionResult CoordinatorView()
         {
@@ -27,7 +26,7 @@ namespace PROG6212POE.Controllers
             return View("CoordinatorView", pendingClaims);
         }
 
-        // View for Academic Manager
+        //View for Academic Manager
         [Authorize(Roles = "AcademicManager")]
         public IActionResult ManagerView()
         {
@@ -39,7 +38,7 @@ namespace PROG6212POE.Controllers
             return View("ManagerView", verifiedClaims);
         }
 
-        // Programme Coordinator verifies a claim
+        //Programme Coordinator verifies a claim
         [Authorize(Roles = "ProgrammeCoordinator")]
         public IActionResult Verify(int id)
         {
@@ -51,7 +50,7 @@ namespace PROG6212POE.Controllers
             return RedirectToAction("CoordinatorView");
         }
 
-        // Programme Coordinator rejects a claim
+        //Programme Coordinator rejects a claim
         [Authorize(Roles = "ProgrammeCoordinator")]
         public IActionResult Reject(int id)
         {
@@ -63,7 +62,7 @@ namespace PROG6212POE.Controllers
             return RedirectToAction("CoordinatorView");
         }
 
-        // Academic Manager approves a claim
+        //Academic Manager approves a claim
         [Authorize(Roles = "AcademicManager")]
         public IActionResult Approve(int id)
         {
@@ -75,7 +74,7 @@ namespace PROG6212POE.Controllers
             return RedirectToAction("ManagerView");
         }
 
-        // Academic Manager rejects a claim
+        //Academic Manager rejects a claim
         [Authorize(Roles = "AcademicManager")]
         public IActionResult RejectFromManager(int id)
         {

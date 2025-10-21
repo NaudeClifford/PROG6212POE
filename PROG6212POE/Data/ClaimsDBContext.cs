@@ -8,7 +8,6 @@ namespace PROG6212POE.Data
     {
         public ClaimsDBContext(DbContextOptions<ClaimsDBContext> options) : base(options) { }
 
-        // Use pluralized DbSet names for clarity and EF convention
         public DbSet<Claim> Claims { get; set; }
         public DbSet<Lecturers> Lecturers { get; set; }
         public DbSet<Admin> Admins { get; set; }
@@ -19,10 +18,9 @@ namespace PROG6212POE.Data
 
             modelBuilder.Entity<Admin>()
                 .HasOne(a => a.User)
-                .WithMany()       // or .WithOne(...) depending on your model
+                .WithMany()
                 .HasForeignKey(a => a.UserId)
                 .IsRequired();
         }
-
     }
 }
