@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PROG6212POE.Data;
 
 namespace PROG6212POE.Controllers
@@ -19,6 +20,7 @@ namespace PROG6212POE.Controllers
         public IActionResult CoordinatorView()
         {
             var pendingClaims = _context.Claims
+                .Include(c => c.User)  //Fixed this error by including this for commit 10
                 .Where(c => c.Status == "Pending")
                 .OrderByDescending(c => c.Created)
                 .ToList();
@@ -31,9 +33,11 @@ namespace PROG6212POE.Controllers
         public IActionResult ManagerView()
         {
             var verifiedClaims = _context.Claims
+                .Include(c => c.User)  //Fixed this error by including this for commit 10
                 .Where(c => c.Status == "Verified")
                 .OrderByDescending(c => c.Created)
                 .ToList();
+
 
             return View("ManagerView", verifiedClaims);
         }
