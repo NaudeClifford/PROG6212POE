@@ -62,10 +62,6 @@
       "RelativeMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|solutionrelative:migrations\\claimsdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Migrations\\20251020114442_UpdateDatabase2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20251020114442_UpdateDatabase2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|c:\\users\\lab_services_student\\documents\\github\\prog6212poe\\prog6212poe\\models\\lecturers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|solutionrelative:models\\lecturers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -84,10 +80,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|c:\\users\\lab_services_student\\documents\\github\\prog6212poe\\prog6212poe\\models\\admin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|solutionrelative:models\\admin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Migrations\\20251020110830_UpdateDatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20251020110830_UpdateDatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|c:\\users\\lab_services_student\\documents\\github\\prog6212poe\\prog6212poe\\services\\adminservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -152,6 +144,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|c:\\users\\lab_services_student\\documents\\github\\prog6212poe\\prog6212poe\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|c:\\users\\lab_services_student\\documents\\github\\prog6212poe\\prog6212poe\\migrations\\20251020114442_updatedatabase2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|solutionrelative:migrations\\20251020114442_updatedatabase2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|c:\\users\\lab_services_student\\documents\\github\\prog6212poe\\prog6212poe\\migrations\\20251020110830_updatedatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|solutionrelative:migrations\\20251020110830_updatedatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -177,8 +177,7 @@
               "RelativeToolTip": "Controllers\\AdminController.cs",
               "ViewState": "AgIAADcAAAAAAAAAAAAIwEcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T14:14:50.368Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T14:14:50.368Z"
             },
             {
               "$type": "Document",
@@ -190,8 +189,7 @@
               "RelativeToolTip": "Models\\LoginViewModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T14:01:02.993Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T14:01:02.993Z"
             },
             {
               "$type": "Document",
@@ -203,8 +201,7 @@
               "RelativeToolTip": "Controllers\\AuthController.cs",
               "ViewState": "AgIAADEAAAAAAAAAAAAiwEAAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T08:56:58.879Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T08:56:58.879Z"
             },
             {
               "$type": "Document",
@@ -216,8 +213,7 @@
               "RelativeToolTip": "Data\\UserSeeder.cs",
               "ViewState": "AgIAADsAAAAAAAAAAAASwEUAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T09:24:58.109Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T09:24:58.109Z"
             },
             {
               "$type": "Document",
@@ -229,8 +225,7 @@
               "RelativeToolTip": "Views\\Home\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T08:59:34.666Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T08:59:34.666Z"
             },
             {
               "$type": "Document",
@@ -242,8 +237,7 @@
               "RelativeToolTip": "..\\PROG6212POETest\\ClaimServiceTester.cs",
               "ViewState": "AgIAAGIAAAAAAAAAAAA8wIIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-20T10:55:29.148Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-20T10:55:29.148Z"
             },
             {
               "$type": "Document",
@@ -255,8 +249,7 @@
               "RelativeToolTip": "Controllers\\ClaimsController.cs",
               "ViewState": "AgIAAIgAAAAAAAAAAAAmwIUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T13:49:33.598Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T13:49:33.598Z"
             },
             {
               "$type": "Document",
@@ -281,8 +274,7 @@
               "RelativeToolTip": "Views\\Auth\\Login.cshtml",
               "ViewState": "AgIAACgAAAAAAAAAAAAiwDkAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T09:05:21.811Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T09:05:21.811Z"
             },
             {
               "$type": "Document",
@@ -294,8 +286,7 @@
               "RelativeToolTip": "Views\\Claims\\Index.cshtml",
               "ViewState": "AgIAABYAAAAAAAAAAAAiwEcAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T13:51:49.179Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T13:51:49.179Z"
             },
             {
               "$type": "Document",
@@ -307,8 +298,7 @@
               "RelativeToolTip": "Models\\Claims.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAAAkwCsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T13:42:55.231Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T13:42:55.231Z"
             },
             {
               "$type": "Document",
@@ -320,8 +310,7 @@
               "RelativeToolTip": "Models\\FileUploadModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-20T11:54:27.394Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-20T11:54:27.394Z"
             },
             {
               "$type": "Document",
@@ -333,12 +322,11 @@
               "RelativeToolTip": "Helpers\\FileEncryptionHelper.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABgAAABUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T13:54:46.529Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T13:54:46.529Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 22,
               "Title": "ClaimsDBContext.cs",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Data\\ClaimsDBContext.cs",
               "RelativeDocumentMoniker": "Data\\ClaimsDBContext.cs",
@@ -358,8 +346,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAUwD4AAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T09:28:44.164Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T09:28:44.164Z"
             },
             {
               "$type": "Document",
@@ -371,12 +358,11 @@
               "RelativeToolTip": "Migrations\\ClaimsDBContextModelSnapshot.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-20T11:54:22.294Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-20T11:54:22.294Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 16,
               "Title": "20251020113739_UpdateDatabase4.cs",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Migrations\\20251020113739_UpdateDatabase4.cs",
               "RelativeDocumentMoniker": "Migrations\\20251020113739_UpdateDatabase4.cs",
@@ -384,12 +370,11 @@
               "RelativeToolTip": "Migrations\\20251020113739_UpdateDatabase4.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-20T11:37:39.806Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-20T11:37:39.806Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 19,
               "Title": "Admin.cs",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Models\\Admin.cs",
               "RelativeDocumentMoniker": "Models\\Admin.cs",
@@ -397,12 +382,11 @@
               "RelativeToolTip": "Models\\Admin.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T09:11:07.814Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T09:11:07.814Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 36,
               "Title": "20251020114442_UpdateDatabase2.cs",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Migrations\\20251020114442_UpdateDatabase2.cs",
               "RelativeDocumentMoniker": "Migrations\\20251020114442_UpdateDatabase2.cs",
@@ -410,12 +394,11 @@
               "RelativeToolTip": "Migrations\\20251020114442_UpdateDatabase2.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-20T11:44:42.818Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-20T11:44:42.818Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 15,
               "Title": "Lecturers.cs",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Models\\Lecturers.cs",
               "RelativeDocumentMoniker": "Models\\Lecturers.cs",
@@ -423,12 +406,11 @@
               "RelativeToolTip": "Models\\Lecturers.cs",
               "ViewState": "AgIAAAIAAAAAAAAAAAAowAwAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T09:10:58.735Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T09:10:58.735Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 20,
               "Title": "AdminService.cs",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Services\\AdminService.cs",
               "RelativeDocumentMoniker": "Services\\AdminService.cs",
@@ -436,12 +418,11 @@
               "RelativeToolTip": "Services\\AdminService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T09:34:21.067Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T09:34:21.067Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 37,
               "Title": "20251020110830_UpdateDatabase.cs",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Migrations\\20251020110830_UpdateDatabase.cs",
               "RelativeDocumentMoniker": "Migrations\\20251020110830_UpdateDatabase.cs",
@@ -449,12 +430,11 @@
               "RelativeToolTip": "Migrations\\20251020110830_UpdateDatabase.cs",
               "ViewState": "AgIAADEAAAAAAAAAAAAQwDkAAABYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-20T11:08:30.833Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-20T11:08:30.833Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 17,
               "Title": "20251020113226_UpdateDatabase3.cs",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Migrations\\20251020113226_UpdateDatabase3.cs",
               "RelativeDocumentMoniker": "Migrations\\20251020113226_UpdateDatabase3.cs",
@@ -462,12 +442,11 @@
               "RelativeToolTip": "Migrations\\20251020113226_UpdateDatabase3.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAA4AAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-20T11:32:26.354Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-20T11:32:26.354Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 18,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
@@ -475,12 +454,11 @@
               "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
               "ViewState": "AgIAACAAAAAAAAAAAAAiwDIAAABqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T13:25:00.274Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-19T13:25:00.274Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 21,
               "Title": "IAdminService.cs",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Services\\IAdminService.cs",
               "RelativeDocumentMoniker": "Services\\IAdminService.cs",
@@ -492,7 +470,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 23,
               "Title": "LecturerService.cs",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Services\\LecturerService.cs",
               "RelativeDocumentMoniker": "Services\\LecturerService.cs",
@@ -504,7 +482,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 24,
               "Title": "ILecturerService.cs",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Services\\ILecturerService.cs",
               "RelativeDocumentMoniker": "Services\\ILecturerService.cs",
@@ -516,7 +494,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 25,
               "Title": "HomeController.cs",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
@@ -528,7 +506,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 26,
               "Title": "IClaimService.cs",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Services\\IClaimService.cs",
               "RelativeDocumentMoniker": "Services\\IClaimService.cs",
@@ -540,7 +518,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 27,
               "Title": "ManagerView.cshtml",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Views\\Admin\\ManagerView.cshtml",
               "RelativeDocumentMoniker": "Views\\Admin\\ManagerView.cshtml",
@@ -552,7 +530,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 28,
               "Title": "CoordinatorView.cshtml",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Views\\Admin\\CoordinatorView.cshtml",
               "RelativeDocumentMoniker": "Views\\Admin\\CoordinatorView.cshtml",
@@ -564,7 +542,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 29,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Views\\Claims\\Create.cshtml",
               "RelativeDocumentMoniker": "Views\\Claims\\Create.cshtml",
@@ -576,7 +554,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 30,
               "Title": "ClaimViewModel.cs",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Models\\ViewModels\\ClaimViewModel.cs",
               "RelativeDocumentMoniker": "Models\\ViewModels\\ClaimViewModel.cs",
@@ -588,7 +566,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 31,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Models\\User.cs",
               "RelativeDocumentMoniker": "Models\\User.cs",
@@ -600,7 +578,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 33,
               "Title": "Details.cshtml",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Views\\Claims\\Details.cshtml",
               "RelativeDocumentMoniker": "Views\\Claims\\Details.cshtml",
@@ -612,7 +590,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 32,
               "Title": "_LoginPartial.cshtml",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Views\\Shared\\_LoginPartial.cshtml",
               "RelativeDocumentMoniker": "Views\\Shared\\_LoginPartial.cshtml",
@@ -624,7 +602,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 34,
               "Title": "AllowedExtensionsAttribute.cs",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Helpers\\AllowedExtensionsAttribute.cs",
               "RelativeDocumentMoniker": "Helpers\\AllowedExtensionsAttribute.cs",
@@ -636,7 +614,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 35,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
