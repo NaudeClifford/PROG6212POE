@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PROG6212POETest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8eb4bf663a0d840f06342fe025f25a2e7ff377be")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+51070fc4d908d95b3faf940943f3faa3b260a519")]
 [assembly: System.Reflection.AssemblyProductAttribute("PROG6212POETest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PROG6212POETest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
