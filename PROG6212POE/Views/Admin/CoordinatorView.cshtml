@@ -14,6 +14,7 @@
             <th>Rate</th>
             <th>Notes</th>
             <th>Date</th>
+            <th>Document</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -21,19 +22,31 @@
         @foreach (var claim in Model)
         {
             <tr>
-                <td>
-                    @(claim.User != null
-                                    ? $"{claim.User.FirstName} {claim.User.LastName}"
-                                    : "Unknown")
-                </td>
-                <td>@(claim.Notes ?? "-")</td>  <!-- If you want a separate description, replace here -->
+                <td>@(claim.User != null ? $"{claim.User.FirstName} {claim.User.LastName}" : "Unknown")</td>
+                <td>@(claim.Notes ?? "-")</td>
                 <td>@claim.HoursWorked.ToString("0.##")</td>
                 <td>@claim.HourlyRate.ToString("C")</td>
                 <td>@(claim.Notes ?? "-")</td>
                 <td>@claim.Created.ToShortDateString()</td>
                 <td>
-                <a asp-action="Verify" asp-route-id="@claim.Id" class="btn btn-success btn-sm">Verify</a>
-                <a asp-action="Reject" asp-route-id="@claim.Id" class="btn btn-danger btn-sm">Reject</a>
+                    @if (!string.IsNullOrEmpty(claim.FilePath))
+                    {
+                        <a asp-action="DownloadFile" asp-route-fileName="@claim.FilePath" target="_blank" class="btn btn-info btn-sm">
+                            View
+                        </a>
+
+                        <a asp-action="DownloadFile" asp-route-fileName="@claim.FilePath" asp-route-download="true" class="btn btn-primary btn-sm">
+                            Download
+                        </a>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Verify" asp-route-id="@claim.Id" class="btn btn-success btn-sm">Verify</a>
+                    <a asp-action="Reject" asp-route-id="@claim.Id" class="btn btn-danger btn-sm">Reject</a>
                 </td>
             </tr>
         }

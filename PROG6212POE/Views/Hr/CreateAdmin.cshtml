@@ -7,13 +7,8 @@
 <h2>Create Admin</h2>
 <hr />
 
-<form asp-action="Create" method="post">
-    <div class="form-group mb-3">
-        <label asp-for="UserId"></label>
-        <input asp-for="UserId" class="form-control" />
-        <span asp-validation-for="UserId" class="text-danger"></span>
-    </div>
-
+<form asp-action="CreateAdmin" method="post">
+    
     <div class="form-group mb-3">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
@@ -47,8 +42,9 @@
     <div class="form-group mb-3">
         <label asp-for="Role"></label>
         <select asp-for="Role" class="form-control">
-            <option value="Admin">Admin</option>
-            <option value="Lecturer">Lecturer</option>
+            <option value="AcademicManager">AcademicManager</option>
+            <option value="ProgrammeCoordinator">ProgrammeCoordinator</option>
+            <option value="HR">HR</option>
         </select>
         <span asp-validation-for="Role" class="text-danger"></span>
     </div>

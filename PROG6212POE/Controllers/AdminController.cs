@@ -9,10 +9,11 @@ namespace PROG6212POE.Controllers
     public class AdminController : Controller
     {
         private readonly ClaimsDBContext _context;
-
-        public AdminController(ClaimsDBContext context)
+        private readonly IWebHostEnvironment _env;
+        public AdminController(ClaimsDBContext context, IWebHostEnvironment env)
         {
             _context = context;
+            _env = env;
         }
 
         //View for Programme Coordinator
@@ -89,5 +90,35 @@ namespace PROG6212POE.Controllers
             _context.SaveChanges();
             return RedirectToAction("ManagerView");
         }
+
+        [Authorize(Roles = "Lecturer, ProgrammeCoordinator, AcademicManager, Hr")]
+        public async Task<IActionResult> DownloadFile(string fileName, bool download = false)
+        {
+            if (string.IsNullOrEmpty(fileName))
+                return BadRequest();
+
+            var folder = Path.Combine(_env.ContentRootPath, "EncryptedUploads");
+            var filePath = Path.Combine(folder, fileName);
+
+            if (!System.IO.File.Exists(filePath))
+                return NotFound();
+
+            var memory = new MemoryStream();
+            await FileEncryptionHelper.DecryptFileAsync(filePath, memory);
+            memory.Position = 0;
+
+            var contentType = fileName.EndsWith(".pdf") ? "application/pdf" :
+                              fileName.EndsWith(".docx") ? "application/vnd.openxmlformats-officedocument.wordprocessingml.document" :
+                              fileName.EndsWith(".xlsx") ? "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" :
+                              "application/octet-stream";
+
+            // Serve inline for view, attachment for download
+            var disposition = download ? "attachment" : "inline";
+
+            Response.Headers.Add("Content-Disposition", $"{disposition}; filename=\"{fileName}\"");
+
+            return File(memory, contentType);
+        }
+
     }
 }

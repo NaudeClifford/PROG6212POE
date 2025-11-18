@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,7 +34,7 @@ namespace PROG6212POE.Controllers
             return View(model);
         }
 
-        // GET: Create Admin
+        //Create Admin
         public IActionResult CreateAdmin()
         {
             return View();
@@ -74,7 +75,7 @@ namespace PROG6212POE.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Create Lecturer
+        //Create Lecturer
         public IActionResult CreateLecturer()
         {
             return View();
@@ -190,38 +191,69 @@ namespace PROG6212POE.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id, string type)
         {
-            if (type == "Admin")
+            try
             {
-                var admin = await _context.Admins.FindAsync(id);
-                if (admin != null)
+                if (type == "Admin")
                 {
+                    var admin = await _context.Admins.FindAsync(id);
+                    if (admin == null)
+                    {
+                        TempData["Message"] = "Admin already deleted.";
+                        return RedirectToAction(nameof(Index));
+                    }
+
+                    // Delete Identity user first
                     var identityUser = await _userManager.FindByIdAsync(admin.UserId);
                     if (identityUser != null)
-                        await _userManager.DeleteAsync(identityUser);
+                    {
+                        var userResult = await _userManager.DeleteAsync(identityUser);
+                        if (!userResult.Succeeded)
+                        {
+                            TempData["Error"] = "Could not delete linked user.";
+                            return RedirectToAction(nameof(Index));
+                        }
+                    }
 
+                    // Remove admin record
                     _context.Admins.Remove(admin);
                     await _context.SaveChangesAsync();
                 }
-            }
-            else if (type == "Lecturer")
-            {
-                var lecturer = await _context.Lecturers.FindAsync(id);
-                if (lecturer != null)
+                else if (type == "Lecturer")
                 {
+                    var lecturer = await _context.Lecturers.FindAsync(id);
+                    if (lecturer == null)
+                    {
+                        TempData["Message"] = "Lecturer already deleted.";
+                        return RedirectToAction(nameof(Index));
+                    }
+
                     var identityUser = await _userManager.FindByIdAsync(lecturer.UserId);
                     if (identityUser != null)
-                        await _userManager.DeleteAsync(identityUser);
+                    {
+                        var userResult = await _userManager.DeleteAsync(identityUser);
+                        if (!userResult.Succeeded)
+                        {
+                            TempData["Error"] = "Could not delete linked user.";
+                            return RedirectToAction(nameof(Index));
+                        }
+                    }
 
                     _context.Lecturers.Remove(lecturer);
                     await _context.SaveChangesAsync();
                 }
-            }
-            else
-            {
-                return BadRequest("Invalid delete type.");
-            }
+                else
+                {
+                    return BadRequest("Invalid delete type.");
+                }
 
-            return RedirectToAction(nameof(Index));
+                TempData["Message"] = $"{type} deleted successfully.";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                TempData["Error"] = "This record was already deleted or modified by another process.";
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         // View Claims Report in browser
@@ -251,35 +283,75 @@ namespace PROG6212POE.Controllers
             return View(claimReports);
         }
 
-        // Download Claims Report as PDF
-        public async Task<IActionResult> DownloadClaimsReport()
+        [Authorize(Roles = "HR")]
+        public async Task<IActionResult> ViewPdf(string userName)
         {
+            // Fetch approved claims for the user
             var approvedClaims = await _context.Claims
-                .Where(c => c.Status == "Approved")
                 .Include(c => c.User)
+                .Where(c => c.Status == "Approved")
                 .ToListAsync();
 
-            var claimReports = new List<ClaimInvoiceViewModel>();
+            // Find the user
+            var userClaims = approvedClaims
+                .Where(c => (c.User.FirstName + " " + c.User.LastName) == userName)
+                .ToList();
 
-            foreach (var group in approvedClaims.GroupBy(c => c.UserId))
+            if (!userClaims.Any())
+                return NotFound();
+
+            var user = userClaims.First().User;
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var report = new ClaimInvoiceViewModel
             {
-                var user = group.First().User;
-                var identityUser = await _userManager.FindByIdAsync(group.Key);
-                var roles = await _userManager.GetRolesAsync(identityUser);
+                UserName = $"{user.FirstName} {user.LastName}",
+                Role = roles.FirstOrDefault() ?? "Unknown",
+                ApprovedClaims = userClaims
+            };
 
-                claimReports.Add(new ClaimInvoiceViewModel
-                {
-                    UserName = user != null ? $"{user.FirstName} {user.LastName}" : "Unknown",
-                    Role = roles.FirstOrDefault() ?? "Unknown",
-                    ApprovedClaims = group.ToList()
-                });
-            }
+            var pdfView = new List<ClaimInvoiceViewModel> { report };
 
-            return new ViewAsPdf("ClaimsReport", claimReports)
+            return new ViewAsPdf("ClaimsReport", pdfView)
             {
-                FileName = $"Claims_Report_{DateTime.Now:yyyyMMdd}.pdf",
+                FileName = $"{userName}_ClaimsReport.pdf",
                 PageSize = Rotativa.AspNetCore.Options.Size.A4
             };
         }
+        [Authorize(Roles = "HR")]
+        public async Task<IActionResult> DownloadPdf(string userName)
+        {
+            var approvedClaims = await _context.Claims
+                .Include(c => c.User)
+                .Where(c => c.Status == "Approved")
+                .ToListAsync();
+
+            var userClaims = approvedClaims
+                .Where(c => (c.User.FirstName + " " + c.User.LastName) == userName)
+                .ToList();
+
+            if (!userClaims.Any())
+                return NotFound();
+
+            var user = userClaims.First().User;
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var report = new ClaimInvoiceViewModel
+            {
+                UserName = $"{user.FirstName} {user.LastName}",
+                Role = roles.FirstOrDefault() ?? "Unknown",
+                ApprovedClaims = userClaims
+            };
+
+            var pdfView = new List<ClaimInvoiceViewModel> { report };
+
+            return new ViewAsPdf("ClaimsReport", pdfView)
+            {
+                FileName = $"{userName}_ClaimsReport.pdf",
+                PageSize = Rotativa.AspNetCore.Options.Size.A4,
+                ContentDisposition = Rotativa.AspNetCore.Options.ContentDisposition.Attachment
+            };
+        }
+
     }
 }

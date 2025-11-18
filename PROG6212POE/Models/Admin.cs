@@ -7,7 +7,6 @@ namespace PROG6212POE.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
         public string UserId { get; set; } = string.Empty;
 
         public User? User { get; set; }

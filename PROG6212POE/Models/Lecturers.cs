@@ -5,13 +5,11 @@ namespace PROG6212POE.Models
     {
         public class Lecturers
         {
-            [Key, Display(Name = "ID")]
+            [Key]
             public int Id { get; set; }
 
-            [Required]
             public string? UserId { get; set; }
 
-            [ForeignKey("UserId")]
             public User? User { get; set; }
 
             [Required, Display(Name = "First Name")]

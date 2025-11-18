@@ -12,18 +12,26 @@ namespace LibrarysPractice
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            //  ENABLE SESSION SUPPORT
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
+
+            //Add MVC + Global Authorization
             builder.Services.AddControllersWithViews(options =>
             {
                 var policy = new Microsoft.AspNetCore.Authorization.AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
                     .Build();
 
+                // APPLY AUTH TO ALL CONTROLLERS,except Auth/Login
                 options.Filters.Add(new Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter(policy));
 
             });
 
-            //Dependency injection
+            //Dependency Injection
             builder.Services.AddScoped<IAdminService, AdminService>();
             builder.Services.AddScoped<ILecturerService, LecturerService>();
             builder.Services.AddScoped<IClaimService, ClaimService>();
@@ -32,42 +40,41 @@ namespace LibrarysPractice
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
             );
 
-
-
+            //Identity Configuration
             builder.Services.AddIdentity<User, IdentityRole>(options =>
             {
-                options.Password.RequiredLength = 0;
-                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
-                options.Password.RequireUppercase = true;
+                options.Password.RequireUppercase = false;
                 options.User.RequireUniqueEmail = true;
             })
-                .AddEntityFrameworkStores<ClaimsDBContext>()
-                .AddSignInManager()
-                .AddDefaultTokenProviders();
+            .AddEntityFrameworkStores<ClaimsDBContext>()
+            .AddSignInManager()
+            .AddDefaultTokenProviders();
 
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Auth/Login";
-                options.LogoutPath = "/Auth/Logout";
                 options.AccessDeniedPath = "/Auth/Login";
             });
 
             var app = builder.Build();
 
-            //Scope
+            var env = app.Environment;
+            Rotativa.AspNetCore.RotativaConfiguration.Setup(env.WebRootPath, "Rotativa");
+
+            //DATABASE MIGRATION + SEED
             using (var scope = app.Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<ClaimsDBContext>();
                 db.Database.Migrate();
 
-                //Seeding
                 await UserSeeder.SeedAsync(app.Services);
-
             }
 
-            // Configure the HTTP request pipeline.
+            //Middlewares
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -82,6 +89,10 @@ namespace LibrarysPractice
             app.UseAuthentication();
             app.UseAuthorization();
 
+            //ENABLE SESSION MIDDLEWARE
+            app.UseSession();
+
+            //ROUTES
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");

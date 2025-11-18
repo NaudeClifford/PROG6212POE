@@ -14,6 +14,7 @@
             <th>Rate</th>
             <th>Notes</th>
             <th>Date</th>
+            <th>Document</th> <!-- New column -->
             <th>Actions</th>
         </tr>
     </thead>
@@ -21,16 +22,28 @@
         @foreach (var claim in Model)
         {
             <tr>
-                <td>
-                    @(claim.User != null
-                                    ? $"{claim.User.FirstName} {claim.User.LastName}"
-                                    : "Unknown")
-                </td>
-                <td>@(claim.Notes ?? "-")</td>  <!-- Or replace with Description if available -->
+                <td>@(claim.User != null ? $"{claim.User.FirstName} {claim.User.LastName}" : "Unknown")</td>
+                <td>@(claim.Notes ?? "-")</td>
                 <td>@claim.HoursWorked.ToString("0.##")</td>
                 <td>@claim.HourlyRate.ToString("C")</td>
                 <td>@(claim.Notes ?? "-")</td>
                 <td>@claim.Created.ToShortDateString()</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(claim.FilePath))
+                    {
+                        <a asp-action="DownloadFile" asp-route-fileName="@claim.FilePath" target="_blank" class="btn btn-info btn-sm">
+                            View
+                        </a>
+
+                        <a asp-action="DownloadFile" asp-route-fileName="@claim.FilePath" asp-route-download="true" class="btn btn-primary btn-sm">
+                            Download
+                        </a>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
                 <td>
                     <a asp-action="Approve" asp-route-id="@claim.Id" class="btn btn-primary btn-sm">Approve</a>
                     <a asp-action="RejectFromManager" asp-route-id="@claim.Id" class="btn btn-danger btn-sm">Reject</a>

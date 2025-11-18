@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PROG6212POE.Controllers
 {
-
     [AllowAnonymous]
     public class AuthController : Controller
     {
@@ -28,6 +27,9 @@ namespace PROG6212POE.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
+            // CLEAR SESSION
+            HttpContext.Session.Clear();
+
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Auth");
         }
@@ -38,6 +40,7 @@ namespace PROG6212POE.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
+            // FIND USER BY USERNAME OR EMAIL
             var user = await _userManager.FindByNameAsync(model.UserNameOrEmail);
 
             if (user == null && model.UserNameOrEmail.Contains("@"))
@@ -47,18 +50,35 @@ namespace PROG6212POE.Controllers
 
             if (user != null)
             {
-                var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
-                
+                var result = await _signInManager.PasswordSignInAsync(
+                    user,
+                    model.Password,
+                    model.RememberMe,
+                    lockoutOnFailure: false
+                );
+
                 if (result.Succeeded)
                 {
-                    // Check role and redirect
-                    if (await _userManager.IsInRoleAsync(user, "AcademicManager"))
+                    // GET ROLES
+                    var roles = await _userManager.GetRolesAsync(user);
+                    var role = roles.FirstOrDefault() ?? "Lecturer";
+
+                    // 🚀 SAVE SESSION VALUES
+                    HttpContext.Session.SetString("UserId", user.Id);
+                    HttpContext.Session.SetString("UserName", user.UserName ?? "");
+                    HttpContext.Session.SetString("UserRole", role);
+
+                    // REDIRECT BASED ON ROLE
+                    if (role == "AcademicManager")
                         return RedirectToAction("ManagerView", "Admin");
 
-                    if (await _userManager.IsInRoleAsync(user, "ProgrammeCoordinator"))
+                    if (role == "ProgrammeCoordinator")
                         return RedirectToAction("CoordinatorView", "Admin");
 
-                    if (await _userManager.IsInRoleAsync(user, "Lecturer"))
+                    if (role == "Hr")
+                        return RedirectToAction("Index", "Hr");
+
+                    if (role == "Lecturer")
                         return RedirectToAction("Index", "Claims");
 
                     return RedirectToAction("Index", "Home");
