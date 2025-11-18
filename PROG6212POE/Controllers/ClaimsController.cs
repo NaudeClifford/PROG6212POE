@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PROG6212POE.Data;
 using PROG6212POE.Models;
 using PROG6212POE.Models.ViewModels;
@@ -33,62 +34,82 @@ namespace PROG6212POE.Controllers
             return View(claims);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var userId = _userManager.GetUserId(User);
+            var lecturer = await _context.Lecturers.FirstOrDefaultAsync(l => l.UserId == userId);
+
+            if (lecturer == null)
+                return Unauthorized("Lecturer profile not found.");
+
+            var model = new ClaimViewModel
+            {
+                HourlyRate = (decimal)lecturer.HourRate
+            };
+
+            return View(model);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ClaimViewModel model)
         {
+            var userId = _userManager.GetUserId(User);
+            var lecturer = await _context.Lecturers.FirstOrDefaultAsync(l => l.UserId == userId);
+
+            if (lecturer == null)
+            {
+                ModelState.AddModelError("", "Lecturer information not found.");
+                return View(model);
+            }
+
+            // Ensure hourly rate cannot be changed by the user
+            model.HourlyRate = (decimal)lecturer.HourRate;
+
             if (!ModelState.IsValid)
                 return View(model);
 
-            //Check if file is attached
+            // Validate file
             if (model.Document == null || model.Document.Length == 0)
             {
                 ModelState.AddModelError("Document", "Please upload a document.");
                 return View(model);
             }
 
-            //Check file size (limit: 5MB)
             long maxSize = 5 * 1024 * 1024;
-            
+
             if (model.Document.Length > maxSize)
             {
-                ModelState.AddModelError("Document", "File size must be under 5MB.");
+                ModelState.AddModelError("Document", "File must be under 5MB.");
                 return View(model);
             }
 
-            //Check allowed types
             var extension = Path.GetExtension(model.Document.FileName).ToLower();
-            var allowed = new[] { ".pdf", ".docx", ".xlsx" };
-            
-            if (!allowed.Contains(extension))
+            var allowedExt = new[] { ".pdf", ".docx", ".xlsx" };
+
+            if (!allowedExt.Contains(extension))
             {
-                ModelState.AddModelError("Document", "Only PDF, DOCX, and XLSX files are allowed.");
+                ModelState.AddModelError("Document", "Only PDF, DOCX, XLSX allowed.");
                 return View(model);
             }
 
             try
             {
                 var fileName = Guid.NewGuid().ToString() + extension;
-                var uploadsFolder = Path.Combine(_env.ContentRootPath, "EncryptedUploads");
-                Directory.CreateDirectory(uploadsFolder);
-                var filePath = Path.Combine(uploadsFolder, fileName);
+                var uploadDir = Path.Combine(_env.ContentRootPath, "EncryptedUploads");
+                Directory.CreateDirectory(uploadDir);
+                var filePath = Path.Combine(uploadDir, fileName);
 
                 using (var stream = model.Document.OpenReadStream())
                 {
-
                     await FileEncryptionHelper.EncryptFileAsync(stream, filePath);
                 }
 
                 // Save claim
                 var claim = new Claim
                 {
-                    UserId = _userManager.GetUserId(User),
+                    UserId = userId,
                     HoursWorked = model.HoursWorked,
-                    HourlyRate = model.HourlyRate,
+                    HourlyRate = (decimal)lecturer.HourRate,
                     Notes = model.Notes,
                     FilePath = fileName,
                     Created = DateTime.Now,
@@ -100,11 +121,9 @@ namespace PROG6212POE.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch
             {
-
-                ModelState.AddModelError(string.Empty, "An error occurred while uploading the file. Please try again.");
-
+                ModelState.AddModelError("", "An error occurred during upload.");
                 return View(model);
             }
         }
@@ -118,7 +137,6 @@ namespace PROG6212POE.Controllers
             if (claim == null)
                 return NotFound();
 
-            // Allow cancelling only if status is Pending
             if (claim.Status != "Pending")
                 return BadRequest("Only pending claims can be cancelled.");
 
@@ -128,32 +146,28 @@ namespace PROG6212POE.Controllers
             return RedirectToAction("Index");
         }
 
-
-        [Authorize(Roles = "Lecturer, ProgrammeCoordinator, AcademicManager")]
+        [Authorize(Roles = "Lecturer, ProgrammeCoordinator, AcademicManager, Hr")]
         public async Task<IActionResult> DownloadFile(string fileName)
         {
             if (string.IsNullOrEmpty(fileName))
                 return BadRequest();
 
-            var uploadsFolder = Path.Combine(_env.ContentRootPath, "EncryptedUploads");
-            var filePath = Path.Combine(uploadsFolder, fileName);
+            var folder = Path.Combine(_env.ContentRootPath, "EncryptedUploads");
+            var filePath = Path.Combine(folder, fileName);
 
-            if (!System.IO.File.Exists(filePath) || new FileInfo(filePath).Length == 0)
-            {
+            if (!System.IO.File.Exists(filePath))
                 return NotFound();
-            }
 
-            var memoryStream = new MemoryStream();
-
-            await FileEncryptionHelper.DecryptFileAsync(filePath, memoryStream);
-            memoryStream.Position = 0;
+            var memory = new MemoryStream();
+            await FileEncryptionHelper.DecryptFileAsync(filePath, memory);
+            memory.Position = 0;
 
             var contentType = fileName.EndsWith(".pdf") ? "application/pdf" :
                               fileName.EndsWith(".docx") ? "application/vnd.openxmlformats-officedocument.wordprocessingml.document" :
                               fileName.EndsWith(".xlsx") ? "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" :
                               "application/octet-stream";
 
-            return File(memoryStream, contentType, Path.GetFileName(fileName));
+            return File(memory, contentType, fileName);
         }
     }
 }

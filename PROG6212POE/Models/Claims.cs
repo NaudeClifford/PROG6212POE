@@ -8,13 +8,13 @@ namespace PROG6212POE.Models
         [Key]
         public int Id { get; set; }
 
-        // Link to User who submitted the claim
         [Required]
         public string UserId { get; set; } = string.Empty;
 
-        public User? User { get; set; } // navigation property
+        public User? User { get; set; }
 
-        [Required, Display(Name = "Hours Worked"), Range(0.5, 100)]
+        [Required, Display(Name = "Hours Worked"), Range(0.5, 180,
+            ErrorMessage = "Hours worked cannot exceed 180 hours per month.")]
         public double HoursWorked { get; set; }
 
         [Required, Display(Name = "Hourly Rate"), Range(10, 1000)]
@@ -23,17 +23,12 @@ namespace PROG6212POE.Models
         [NotMapped]
         public decimal Total => (decimal)HoursWorked * HourlyRate;
 
-        [Display(Name = "Notes")]
         public string? Notes { get; set; }
 
-        [Display(Name = "Date Submitted")]
         public DateTime Created { get; set; } = DateTime.Now;
 
-        // File Upload
-        [Display(Name = "Document Path")]
         public string? FilePath { get; set; }
 
-        [Display(Name = "Claim Status")]
-        public string Status { get; set; } = "Pending"; // Pending, Verified, Approved, Rejected
+        public string Status { get; set; } = "Pending";
     }
 }

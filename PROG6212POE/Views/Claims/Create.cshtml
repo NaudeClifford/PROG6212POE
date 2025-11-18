@@ -3,7 +3,7 @@
     ViewData["Title"] = "Submit Claim";
 }
 
-<h2>Submit Claim</h2>
+<h2 class="mb-4">Submit Claim</h2>
 
 @if (!ViewData.ModelState.IsValid)
 {
@@ -16,39 +16,80 @@
 }
 
 <form asp-action="Create" enctype="multipart/form-data" method="post">
+
+    <!-- Hours Worked -->
     <div class="mb-3">
         <label asp-for="HoursWorked" class="form-label"></label>
-        <input asp-for="HoursWorked" class="form-control" />
+        <input asp-for="HoursWorked" class="form-control" id="hoursWorkedInput" />
         <span asp-validation-for="HoursWorked" class="text-danger"></span>
+        <small class="text-muted">Maximum allowed per month: 180 hours</small>
     </div>
 
+    <!-- Hourly Rate (Auto-Filled + Readonly) -->
     <div class="mb-3">
         <label asp-for="HourlyRate" class="form-label"></label>
-        <input asp-for="HourlyRate" class="form-control" />
+        <input asp-for="HourlyRate" class="form-control" id="hourlyRateInput" readonly />
         <span asp-validation-for="HourlyRate" class="text-danger"></span>
+        <small class="text-muted">This rate is set by HR.</small>
     </div>
 
+    <!-- Auto Total Calculation -->
+    <div class="mb-3">
+        <label class="form-label">Total Amount</label>
+        <input id="totalAmount" class="form-control" readonly />
+        <small class="text-muted">Automatically calculated: Hours × Rate</small>
+    </div>
+
+    <!-- Notes -->
     <div class="mb-3">
         <label asp-for="Notes" class="form-label"></label>
         <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
         <span asp-validation-for="Notes" class="text-danger"></span>
     </div>
 
+    <!-- Document Upload -->
     <div class="mb-3">
         <label asp-for="Document" class="form-label">Supporting Document</label>
         <input asp-for="Document" type="file" class="form-control" />
-        <span class="form-text">Allowed types: .pdf, .docx, .xlsx. Max size: 5MB</span>
+        <span class="form-text">Allowed: .pdf, .docx, .xlsx (Max 5MB)</span>
         <span asp-validation-for="Document" class="text-danger"></span>
     </div>
 
     <button type="submit" class="btn btn-success">
         <i class="bi bi-upload me-1"></i> Submit Claim
     </button>
+
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+
 </form>
 
+
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // Load Hourly Rate from server (this is put into ViewBag by controller)
+            const hourlyRate = @Model.HourlyRate;
+            document.getElementById("hourlyRateInput").value = hourlyRate;
+
+            const hoursInput = document.getElementById("hoursWorkedInput");
+            const totalInput = document.getElementById("totalAmount");
+
+            function calculateTotal() {
+                let hours = parseFloat(hoursInput.value);
+                let rate = parseFloat(hourlyRate);
+
+                if (!isNaN(hours) && hours > 0) {
+                    totalInput.value = (hours * rate).toFixed(2);
+                } else {
+                    totalInput.value = "";
+                }
+            }
+
+            hoursInput.addEventListener("input", calculateTotal);
+            calculateTotal();
+        });
+    </script>
 }
