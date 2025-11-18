@@ -21,6 +21,20 @@ namespace PROG6212POE.Data
                 .WithMany()
                 .HasForeignKey(a => a.UserId)
                 .IsRequired();
+
+            modelBuilder.Entity<Lecturers>()
+                .HasOne(l => l.User)
+                .WithMany()
+                .HasForeignKey(l => l.UserId)
+                .IsRequired();
+
+            modelBuilder.Entity<Claim>(entity =>
+            {
+                entity.Property(e => e.HourlyRate)
+                      .HasColumnType("decimal(18,2)"); // precision 18, scale 2
+            });
+
+
         }
     }
 }

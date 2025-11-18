@@ -11,17 +11,18 @@ namespace PROG6212POE.Controllers
 {
     public class HrController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ClaimsDBContext _context;
 
-        public HrController(ClaimsDBContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public HrController(ClaimsDBContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
         }
 
+        // GET: HR Index
         public async Task<IActionResult> Index()
         {
             var model = new HrViewModel
@@ -29,103 +30,93 @@ namespace PROG6212POE.Controllers
                 Lecturers = await _context.Lecturers.Include(l => l.User).ToListAsync(),
                 Admins = await _context.Admins.Include(a => a.User).ToListAsync()
             };
-
             return View(model);
         }
 
-
+        // GET: Create Admin
         public IActionResult CreateAdmin()
         {
             return View();
         }
 
+        // POST: Create Admin
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAdmin(Admin admin)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(admin);
+
+            var identityUser = new User
             {
-                // 1. Create Identity user
-                var identityUser = new IdentityUser
-                {
-                    UserName = admin.Username,
-                    Email = admin.Email,
-                    PhoneNumber = admin.PhoneNumber
-                };
+                UserName = admin.Username,
+                Email = admin.Email,
+                PhoneNumber = admin.PhoneNumber,
+                FirstName = admin.Name,
+                LastName = admin.Surname
+            };
 
-                var result = await _userManager.CreateAsync(identityUser, "DefaultPassword123!");
-
-                if (!result.Succeeded)
-                {
-                    foreach (var err in result.Errors)
-                        ModelState.AddModelError("", err.Description);
-                    return View(admin);
-                }
-
-                // 2. Assign Role to Identity User
-                if (!await _roleManager.RoleExistsAsync(admin.Role))
-                    await _roleManager.CreateAsync(new IdentityRole(admin.Role));
-
-                await _userManager.AddToRoleAsync(identityUser, admin.Role);
-
-                // 3. Insert into Admin table
-                admin.UserId = identityUser.Id;
-
-                _context.Admins.Add(admin);
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction("Index");
+            var result = await _userManager.CreateAsync(identityUser, "DefaultPassword123!");
+            if (!result.Succeeded)
+            {
+                foreach (var err in result.Errors)
+                    ModelState.AddModelError("", err.Description);
+                return View(admin);
             }
 
-            return View(admin);
+            if (!await _roleManager.RoleExistsAsync(admin.Role))
+                await _roleManager.CreateAsync(new IdentityRole(admin.Role));
+
+            await _userManager.AddToRoleAsync(identityUser, admin.Role);
+
+            admin.UserId = identityUser.Id;
+            _context.Admins.Add(admin);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
+        // GET: Create Lecturer
         public IActionResult CreateLecturer()
         {
             return View();
         }
 
+        // POST: Create Lecturer
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateLecturer(Lecturers lecturer)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(lecturer);
+
+            var identityUser = new User
             {
-                // 1. Create Identity user
-                var identityUser = new IdentityUser
-                {
-                    UserName = lecturer.Username,
-                    Email = lecturer.Email,
-                    PhoneNumber = lecturer.PhoneNumber
-                };
+                UserName = lecturer.Username,
+                Email = lecturer.Email,
+                PhoneNumber = lecturer.PhoneNumber,
+                FirstName = lecturer.Name,
+                LastName = lecturer.Surname
+            };
 
-                var result = await _userManager.CreateAsync(identityUser, "DefaultPassword123!");
-
-                if (!result.Succeeded)
-                {
-                    foreach (var err in result.Errors)
-                        ModelState.AddModelError("", err.Description);
-                    return View(lecturer);
-                }
-
-                // 2. Assign Lecturer Role
-                string role = "Lecturer";
-
-                if (!await _roleManager.RoleExistsAsync(role))
-                    await _roleManager.CreateAsync(new IdentityRole(role));
-
-                await _userManager.AddToRoleAsync(identityUser, role);
-
-                // 3. Insert into Lecturer table
-                lecturer.UserId = identityUser.Id;
-
-                _context.Lecturers.Add(lecturer);
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction("Index");
+            var result = await _userManager.CreateAsync(identityUser, "DefaultPassword123!");
+            if (!result.Succeeded)
+            {
+                foreach (var err in result.Errors)
+                    ModelState.AddModelError("", err.Description);
+                return View(lecturer);
             }
 
-            return View(lecturer);
+            const string role = "Lecturer";
+            if (!await _roleManager.RoleExistsAsync(role))
+                await _roleManager.CreateAsync(new IdentityRole(role));
+
+            await _userManager.AddToRoleAsync(identityUser, role);
+
+            lecturer.UserId = identityUser.Id;
+            _context.Lecturers.Add(lecturer);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
+        // GET: Edit Admin
         public async Task<IActionResult> EditAdmin(int? id)
         {
             if (id == null) return NotFound();
@@ -136,32 +127,31 @@ namespace PROG6212POE.Controllers
             return View(admin);
         }
 
+        // POST: Edit Admin
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> EditAdmin(int id, Admin admin)
         {
             if (id != admin.Id) return NotFound();
+            if (!ModelState.IsValid) return View(admin);
 
-            if (ModelState.IsValid)
+            var identityUser = await _userManager.FindByIdAsync(admin.UserId);
+            if (identityUser != null)
             {
-                // update identity user details too
-                var identityUser = await _userManager.FindByIdAsync(admin.UserId);
-
                 identityUser.UserName = admin.Username;
                 identityUser.Email = admin.Email;
                 identityUser.PhoneNumber = admin.PhoneNumber;
-
+                identityUser.FirstName = admin.Name;
+                identityUser.LastName = admin.Surname;
                 await _userManager.UpdateAsync(identityUser);
-
-                // update admin table
-                _context.Update(admin);
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Index));
             }
 
-            return View(admin);
+            _context.Update(admin);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
+        // GET: Edit Lecturer
         public async Task<IActionResult> EditLecturer(int? id)
         {
             if (id == null) return NotFound();
@@ -172,57 +162,59 @@ namespace PROG6212POE.Controllers
             return View(lecturer);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        // POST: Edit Lecturer
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> EditLecturer(int id, Lecturers lecturer)
         {
             if (id != lecturer.Id) return NotFound();
+            if (!ModelState.IsValid) return View(lecturer);
 
-            if (ModelState.IsValid)
+            var identityUser = await _userManager.FindByIdAsync(lecturer.UserId);
+            if (identityUser != null)
             {
-                var identityUser = await _userManager.FindByIdAsync(lecturer.UserId);
-
                 identityUser.UserName = lecturer.Username;
                 identityUser.Email = lecturer.Email;
                 identityUser.PhoneNumber = lecturer.PhoneNumber;
-
+                identityUser.FirstName = lecturer.Name;
+                identityUser.LastName = lecturer.Surname;
                 await _userManager.UpdateAsync(identityUser);
-
-                _context.Update(lecturer);
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Index));
             }
 
-            return View(lecturer);
+            _context.Update(lecturer);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
+        // POST: Delete Admin or Lecturer
         [HttpPost]
         public async Task<IActionResult> Delete(int id, string type)
         {
             if (type == "Admin")
             {
                 var admin = await _context.Admins.FindAsync(id);
-                if (admin == null) return NotFound();
+                if (admin != null)
+                {
+                    var identityUser = await _userManager.FindByIdAsync(admin.UserId);
+                    if (identityUser != null)
+                        await _userManager.DeleteAsync(identityUser);
 
-                var identityUser = await _userManager.FindByIdAsync(admin.UserId);
-                if (identityUser != null)
-                    await _userManager.DeleteAsync(identityUser);
-
-                _context.Admins.Remove(admin);
-                await _context.SaveChangesAsync();
+                    _context.Admins.Remove(admin);
+                    await _context.SaveChangesAsync();
+                }
             }
             else if (type == "Lecturer")
             {
                 var lecturer = await _context.Lecturers.FindAsync(id);
-                if (lecturer == null) return NotFound();
+                if (lecturer != null)
+                {
+                    var identityUser = await _userManager.FindByIdAsync(lecturer.UserId);
+                    if (identityUser != null)
+                        await _userManager.DeleteAsync(identityUser);
 
-                var identityUser = await _userManager.FindByIdAsync(lecturer.UserId);
-                if (identityUser != null)
-                    await _userManager.DeleteAsync(identityUser);
-
-                _context.Lecturers.Remove(lecturer);
-                await _context.SaveChangesAsync();
+                    _context.Lecturers.Remove(lecturer);
+                    await _context.SaveChangesAsync();
+                }
             }
             else
             {
@@ -232,7 +224,7 @@ namespace PROG6212POE.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // View the report in browser
+        // View Claims Report in browser
         public async Task<IActionResult> ClaimsReport()
         {
             var approvedClaims = await _context.Claims
@@ -259,7 +251,7 @@ namespace PROG6212POE.Controllers
             return View(claimReports);
         }
 
-        // Download as PDF
+        // Download Claims Report as PDF
         public async Task<IActionResult> DownloadClaimsReport()
         {
             var approvedClaims = await _context.Claims
@@ -289,8 +281,5 @@ namespace PROG6212POE.Controllers
                 PageSize = Rotativa.AspNetCore.Options.Size.A4
             };
         }
-
-
     }
 }
-

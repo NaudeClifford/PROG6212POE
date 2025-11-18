@@ -28,6 +28,36 @@ namespace PROG6212POE.Data
                 }
             }
 
+            // Seed Lecturer
+            var lecturerEmail = "lecturer@system.local";
+            var lecturerUser = await userManager.FindByEmailAsync(lecturerEmail);
+
+            if (lecturerUser == null)
+            {
+                lecturerUser = new User
+                {
+                    UserName = "lecturer",
+                    Email = lecturerEmail,
+                    EmailConfirmed = true,
+                    FirstName = "Lecturer",
+                    LastName = "One"
+                };
+                await userManager.CreateAsync(lecturerUser, "Lecturer#12345");
+                await userManager.AddToRoleAsync(lecturerUser, "Lecturer");
+
+                context.Lecturers.Add(new Lecturers
+                {
+                    UserId = lecturerUser.Id,
+                    User = lecturerUser,
+                    Name = lecturerUser.FirstName,
+                    Surname = lecturerUser.LastName,
+                    Username = lecturerUser.UserName,
+                    Email = lecturerUser.Email,
+                    PhoneNumber = "333-333-3333",
+                    HoursWorked = 0,
+                    HourRate = 0
+                });
+            }
             //Seed HR Manager
             var hrEmail = "hr@system.local";
             var hrUser = await userManager.FindByEmailAsync(hrEmail);

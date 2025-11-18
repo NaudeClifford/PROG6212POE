@@ -28,10 +28,10 @@ namespace LibrarysPractice
             builder.Services.AddScoped<ILecturerService, LecturerService>();
             builder.Services.AddScoped<IClaimService, ClaimService>();
 
-            //MySql standard
-            var connStr = builder.Configuration.GetConnectionString("DBConnection");
             builder.Services.AddDbContext<ClaimsDBContext>(options =>
-            options.UseMySql(connStr, ServerVersion.AutoDetect(connStr)));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+            );
+
 
 
             builder.Services.AddIdentity<User, IdentityRole>(options =>
