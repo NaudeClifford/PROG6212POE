@@ -56,6 +56,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/lab_services_student/Documents/GitHub/PROG6212POE/PROG6212POE/Views/Hr/CreateAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSHJcQ3JlYXRlQWRtaW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/lab_services_student/Documents/GitHub/PROG6212POE/PROG6212POE/Views/Hr/CreateLecturer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSHJcQ3JlYXRlTGVjdHVyZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/lab_services_student/Documents/GitHub/PROG6212POE/PROG6212POE/Views/Hr/EditAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSHJcRWRpdEFkbWluLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/lab_services_student/Documents/GitHub/PROG6212POE/PROG6212POE/Views/Hr/EditLecturer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSHJcRWRpdExlY3R1cmVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/lab_services_student/Documents/GitHub/PROG6212POE/PROG6212POE/Views/Hr/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSHJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/lab_services_student/Documents/GitHub/PROG6212POE/PROG6212POE/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

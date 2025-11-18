@@ -12,7 +12,7 @@ namespace PROG6212POE.Data
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 
-            string[] roles = { "AcademicManager", "ProgrammeCoordinator", "Lecturer" };
+            string[] roles = {"HR", "AcademicManager", "ProgrammeCoordinator", "Lecturer" };
 
             //Check if roles exist
             foreach (var role in roles)
@@ -28,6 +28,36 @@ namespace PROG6212POE.Data
                 }
             }
 
+            //Seed HR Manager
+            var hrEmail = "hr@system.local";
+            var hrUser = await userManager.FindByEmailAsync(hrEmail);
+
+            if (hrUser == null)
+            {
+                hrUser = new User
+                {
+                    UserName = "hr",
+                    Email = hrEmail,
+                    EmailConfirmed = true,
+                    FirstName = "hr",
+                    LastName = "One"
+                };
+                await userManager.CreateAsync(hrUser, "Hr#12345");
+                await userManager.AddToRoleAsync(hrUser, "HR");
+
+                context.Admins.Add(new Admin
+                {
+                    UserId = hrUser.Id,
+                    User = hrUser,
+                    Role = "HR",
+                    PhoneNumber = "111-111-1111",
+                    Username = hrUser.UserName,
+                    Email = hrUser.Email,
+                    Name = hrUser.FirstName,
+                    Surname = hrUser.LastName
+                });
+            }
+
             //Seed Academic Manager
             var managerEmail = "manager@system.local";
             var managerUser = await userManager.FindByEmailAsync(managerEmail);
@@ -36,7 +66,7 @@ namespace PROG6212POE.Data
             {
                 managerUser = new User
                 {
-                    UserName = "manager",
+                    UserName = "manager", 
                     Email = managerEmail,
                     EmailConfirmed = true,
                     FirstName = "Manager",
@@ -70,7 +100,7 @@ namespace PROG6212POE.Data
                     Email = coordinatorEmail,
                     EmailConfirmed = true,
                     FirstName = "Coordinator",
-                    LastName = "Two"
+                    LastName = "One"
                 };
                 await userManager.CreateAsync(coordinatorUser, "Coordinator#12345");
                 await userManager.AddToRoleAsync(coordinatorUser, "ProgrammeCoordinator");
@@ -85,35 +115,6 @@ namespace PROG6212POE.Data
                     Email = coordinatorUser.Email,
                     Name = coordinatorUser.FirstName,
                     Surname = coordinatorUser.LastName
-                });
-            }
-
-            //Seed Lecturer
-            var lecturerEmail = "lecturer@system.local";
-            var lecturerUser = await userManager.FindByEmailAsync(lecturerEmail);
-            
-            if (lecturerUser == null)
-            {
-                lecturerUser = new User
-                {
-                    UserName = "lecturer",
-                    Email = lecturerEmail,
-                    EmailConfirmed = true,
-                    FirstName = "Lecturer",
-                    LastName = "Three"
-                };
-                await userManager.CreateAsync(lecturerUser, "Lecturer#12345");
-                await userManager.AddToRoleAsync(lecturerUser, "Lecturer");
-
-                context.Lecturers.Add(new Lecturers
-                {
-                    UserId = lecturerUser.Id,
-                    User = lecturerUser,
-                    Name = lecturerUser.FirstName,
-                    Surname = lecturerUser.LastName,
-                    Username = lecturerUser.UserName,
-                    Email = lecturerUser.Email,
-                    PhoneNumber = "333-333-3333"
                 });
             }
 

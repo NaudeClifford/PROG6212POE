@@ -1,0 +1,86 @@
+﻿@model PROG6212POE.Models.ViewModels.HrViewModel
+@{
+    ViewData["Title"] = "Hr View";
+}
+
+<h1>Hr View</h1>
+
+<h2>Users - Lecturer</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>PhoneNumber</th>
+            <th>HoursWorked</th>
+            <th>HourRate</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var lecturer in Model.Lecturers)
+        {
+            <tr>
+                <td>
+                    @(lecturer.User != null
+                                    ? $"{lecturer.User.FirstName} {lecturer.User.LastName}"
+                                    : "Unknown")
+            </td>
+            <td>@(lecturer.Username ?? "-")</td>
+            <td>@(lecturer.Email ?? "-")</td>
+            <td>@(lecturer.PhoneNumber ?? "-")</td>
+            <td>@lecturer.HoursWorked.ToString("0.##")</td>
+            <td>@lecturer.HourRate.ToString("C")</td>
+            <td>
+                <a asp-action="EditLecturer" asp-route-id="@lecturer.Id" class="btn btn-success btn-sm">Edit</a>
+                
+                <form asp-action="Delete" asp-route-id="@lecturer.Id" method="post" style="display:inline;">
+                    <input type="hidden" name="type" value="Lecturer" />
+                    <button class="btn btn-danger btn-sm" onclick="return confirm('Delete this user?');">Delete</button>
+                </form>
+            </td>
+        </tr>
+                }
+    </tbody>
+</table>
+
+<h2>Users - Admins</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>PhoneNumber</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var admin in Model.Admins)
+        {
+            <tr>
+                <td>
+                    @(admin.User != null
+                                    ? $"{admin.User.FirstName} {admin.User.LastName}"
+                                    : "Unknown")
+            </td>
+            <td>@(admin.Username ?? "-")</td>
+            <td>@(admin.Email ?? "-")</td>
+            <td>@(admin.PhoneNumber ?? "-")</td>
+            <td>@admin.Role</td>
+            <td>
+                <a asp-action="EditAdmin" asp-route-id="@admin.Id" class="btn btn-success btn-sm">Edit</a>
+                <form asp-action="Delete" asp-route-id="@admin.Id" method="post" style="display:inline;">
+                    <input type="hidden" name="type" value="Admin" />
+                    <button class="btn btn-danger btn-sm" onclick="return confirm('Delete this user?');">Delete</button>
+                </form>
+                </td>
+        </tr>
+                }
+    </tbody>
+</table>

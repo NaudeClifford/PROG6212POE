@@ -3,12 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|c:\\users\\lab_services_student\\documents\\github\\prog6212poe\\prog6212poe\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|solutionrelative:controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|c:\\users\\lab_services_student\\documents\\github\\prog6212poe\\prog6212poe\\models\\viewmodels\\hrviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|solutionrelative:models\\viewmodels\\hrviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|c:\\users\\lab_services_student\\documents\\github\\prog6212poe\\prog6212poe\\views\\admin\\managerview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|solutionrelative:views\\admin\\managerview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|c:\\users\\lab_services_student\\documents\\github\\prog6212poe\\prog6212poe\\views\\hr\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|solutionrelative:views\\hr\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|c:\\users\\lab_services_student\\documents\\github\\prog6212poe\\prog6212poe\\controllers\\hrcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|solutionrelative:controllers\\hrcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|c:\\users\\lab_services_student\\documents\\github\\prog6212poe\\prog6212poe\\views\\hr\\editadmin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|solutionrelative:views\\hr\\editadmin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|c:\\users\\lab_services_student\\documents\\github\\prog6212poe\\prog6212poe\\views\\hr\\editlecturer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|solutionrelative:views\\hr\\editlecturer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|c:\\users\\lab_services_student\\documents\\github\\prog6212poe\\prog6212poe\\views\\hr\\createlecturer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|solutionrelative:views\\hr\\createlecturer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|c:\\users\\lab_services_student\\documents\\github\\prog6212poe\\prog6212poe\\views\\hr\\createadmin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FCF3CD03-443C-4EDC-96F6-27E02F27C69A}|PROG6212POE.csproj|solutionrelative:views\\hr\\createadmin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -27,27 +47,92 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AdminController.cs",
-              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Controllers\\AdminController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AdminController.cs",
-              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Controllers\\AdminController.cs",
-              "RelativeToolTip": "Controllers\\AdminController.cs",
-              "ViewState": "AgIAAEYAAAAAAAAAAAAowBYAAAAQAAAAAAAAAA==",
+              "Title": "HrViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Models\\ViewModels\\HrViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ViewModels\\HrViewModel.cs",
+              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Models\\ViewModels\\HrViewModel.cs",
+              "RelativeToolTip": "Models\\ViewModels\\HrViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-21T12:23:31.824Z",
+              "WhenOpened": "2025-11-18T08:58:43.024Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ManagerView.cshtml",
-              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Views\\Admin\\ManagerView.cshtml",
-              "RelativeDocumentMoniker": "Views\\Admin\\ManagerView.cshtml",
-              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Views\\Admin\\ManagerView.cshtml",
-              "RelativeToolTip": "Views\\Admin\\ManagerView.cshtml",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAmwBoAAAAwAAAAAAAAAA==",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Views\\Hr\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Hr\\Index.cshtml",
+              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Views\\Hr\\Index.cshtml",
+              "RelativeToolTip": "Views\\Hr\\Index.cshtml",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAAEgAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-21T12:22:04.396Z",
+              "WhenOpened": "2025-11-18T08:37:00.927Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EditLecturer.cshtml",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Views\\Hr\\EditLecturer.cshtml",
+              "RelativeDocumentMoniker": "Views\\Hr\\EditLecturer.cshtml",
+              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Views\\Hr\\EditLecturer.cshtml",
+              "RelativeToolTip": "Views\\Hr\\EditLecturer.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-18T08:36:25.929Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "EditAdmin.cshtml",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Views\\Hr\\EditAdmin.cshtml",
+              "RelativeDocumentMoniker": "Views\\Hr\\EditAdmin.cshtml",
+              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Views\\Hr\\EditAdmin.cshtml",
+              "RelativeToolTip": "Views\\Hr\\EditAdmin.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-18T08:34:41.92Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "HrController.cs",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Controllers\\HrController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HrController.cs",
+              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Controllers\\HrController.cs",
+              "RelativeToolTip": "Controllers\\HrController.cs",
+              "ViewState": "AgIAAKkAAAAAAAAAAAAIwB0AAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-18T08:24:21.601Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CreateLecturer.cshtml",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Views\\Hr\\CreateLecturer.cshtml",
+              "RelativeDocumentMoniker": "Views\\Hr\\CreateLecturer.cshtml",
+              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Views\\Hr\\CreateLecturer.cshtml",
+              "RelativeToolTip": "Views\\Hr\\CreateLecturer.cshtml",
+              "ViewState": "AgIAACIAAAAAAAAAAAAuwEEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-18T08:24:16.624Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CreateAdmin.cshtml",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Views\\Hr\\CreateAdmin.cshtml",
+              "RelativeDocumentMoniker": "Views\\Hr\\CreateAdmin.cshtml",
+              "ToolTip": "C:\\Users\\lab_services_student\\Documents\\GitHub\\PROG6212POE\\PROG6212POE\\Views\\Hr\\CreateAdmin.cshtml",
+              "RelativeToolTip": "Views\\Hr\\CreateAdmin.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-18T08:24:15.697Z",
               "EditorCaption": ""
             }
           ]
