@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using PROG6212POE.Data;
 using PROG6212POE.Models;
 using PROG6212POE.Models.ViewModels;
+using Rotativa.AspNetCore;
 
 namespace PROG6212POE.Controllers
 {
@@ -229,6 +230,64 @@ namespace PROG6212POE.Controllers
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+        // View the report in browser
+        public async Task<IActionResult> ClaimsReport()
+        {
+            var approvedClaims = await _context.Claims
+                .Where(c => c.Status == "Approved")
+                .Include(c => c.User)
+                .ToListAsync();
+
+            var claimReports = new List<ClaimInvoiceViewModel>();
+
+            foreach (var group in approvedClaims.GroupBy(c => c.UserId))
+            {
+                var user = group.First().User;
+                var identityUser = await _userManager.FindByIdAsync(group.Key);
+                var roles = await _userManager.GetRolesAsync(identityUser);
+
+                claimReports.Add(new ClaimInvoiceViewModel
+                {
+                    UserName = user != null ? $"{user.FirstName} {user.LastName}" : "Unknown",
+                    Role = roles.FirstOrDefault() ?? "Unknown",
+                    ApprovedClaims = group.ToList()
+                });
+            }
+
+            return View(claimReports);
+        }
+
+        // Download as PDF
+        public async Task<IActionResult> DownloadClaimsReport()
+        {
+            var approvedClaims = await _context.Claims
+                .Where(c => c.Status == "Approved")
+                .Include(c => c.User)
+                .ToListAsync();
+
+            var claimReports = new List<ClaimInvoiceViewModel>();
+
+            foreach (var group in approvedClaims.GroupBy(c => c.UserId))
+            {
+                var user = group.First().User;
+                var identityUser = await _userManager.FindByIdAsync(group.Key);
+                var roles = await _userManager.GetRolesAsync(identityUser);
+
+                claimReports.Add(new ClaimInvoiceViewModel
+                {
+                    UserName = user != null ? $"{user.FirstName} {user.LastName}" : "Unknown",
+                    Role = roles.FirstOrDefault() ?? "Unknown",
+                    ApprovedClaims = group.ToList()
+                });
+            }
+
+            return new ViewAsPdf("ClaimsReport", claimReports)
+            {
+                FileName = $"Claims_Report_{DateTime.Now:yyyyMMdd}.pdf",
+                PageSize = Rotativa.AspNetCore.Options.Size.A4
+            };
         }
 
 
