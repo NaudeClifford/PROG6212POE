@@ -61,6 +61,7 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
+wwwroot\Rotativa\wkhtmltopdf.exe
 C:\Users\lab_services_student\Documents\GitHub\PROG6212POE\PROG6212POE\wwwroot\favicon.ico
 C:\Users\lab_services_student\Documents\GitHub\PROG6212POE\PROG6212POE\wwwroot\css\site.css
 C:\Users\lab_services_student\Documents\GitHub\PROG6212POE\PROG6212POE\wwwroot\lib\jquery\LICENSE.txt

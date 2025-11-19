@@ -284,40 +284,33 @@ namespace PROG6212POE.Controllers
         }
 
         [Authorize(Roles = "HR")]
-        public async Task<IActionResult> ViewPdf(string userName)
+        public IActionResult ViewPdf(string userName)
         {
-            // Fetch approved claims for the user
-            var approvedClaims = await _context.Claims
+            var report = _context.Claims
                 .Include(c => c.User)
-                .Where(c => c.Status == "Approved")
-                .ToListAsync();
+                .Where(c => c.User.FirstName + " " + c.User.LastName == userName && c.Status == "Approved")
+                .GroupBy(c => c.User)
+                .Select(g => new ClaimInvoiceViewModel
+                {
+                    UserName = g.Key.FirstName + " " + g.Key.LastName,
+                    Role = "Unknown",
+                    ApprovedClaims = g.ToList()
+                })
+                .FirstOrDefault();
 
-            // Find the user
-            var userClaims = approvedClaims
-                .Where(c => (c.User.FirstName + " " + c.User.LastName) == userName)
-                .ToList();
-
-            if (!userClaims.Any())
+            if (report == null)
                 return NotFound();
-
-            var user = userClaims.First().User;
-            var roles = await _userManager.GetRolesAsync(user);
-
-            var report = new ClaimInvoiceViewModel
-            {
-                UserName = $"{user.FirstName} {user.LastName}",
-                Role = roles.FirstOrDefault() ?? "Unknown",
-                ApprovedClaims = userClaims
-            };
 
             var pdfView = new List<ClaimInvoiceViewModel> { report };
 
             return new ViewAsPdf("ClaimsReport", pdfView)
             {
                 FileName = $"{userName}_ClaimsReport.pdf",
-                PageSize = Rotativa.AspNetCore.Options.Size.A4
+                PageSize = Rotativa.AspNetCore.Options.Size.A4,
+                ContentDisposition = Rotativa.AspNetCore.Options.ContentDisposition.Inline
             };
         }
+
         [Authorize(Roles = "HR")]
         public async Task<IActionResult> DownloadPdf(string userName)
         {
