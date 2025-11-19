@@ -17,6 +17,17 @@ Added 10 Commits on git hub using new git repository
 Added controllers and AuthController for validating user roles
 Added different views for admin users and lecturer users
 
+Changes Made for part 3 from part 2
+Added HR controller
+Added Hr views with CRUD implimented
+Added View and functions for ClaimsReport to generate pdf based on the data from the database per lecturers claim that has been approved.
+Added 2 viewmodels to help with the flow of data within the project.
+Added document column in the table with view and download buttons for the managers to view the documents from the lectureres
+based on the lecturer feedback.
+Used more descriptive comments in my github comment submission as asked by the lecturer
+Created SQL database and adpated the project to use the database and migrate to it.
+Used SSMS for local database while i worked on the application.
+
 References: 
 chatGPT. (2025, Auguest 13). chatGPT. Retrieved from chatGPT: https://chatgpt.com/
 
