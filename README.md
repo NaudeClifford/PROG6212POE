@@ -3,7 +3,7 @@ ST10258513 Clifford Naude
 About PROG6212 POE
 This is a Contract Monthly Claims System meant to streamline the process of contractor lecturers to submit their hours worked and hourly rate where the administrators can approve or reject the claims.
 
-
+For Part 1 and 2, not part 3
 Youtube Link: https://youtu.be/oAQDuHgt3W0
 
 Changes Made from part 1
