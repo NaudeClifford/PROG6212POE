@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +9,7 @@ using Rotativa.AspNetCore;
 
 namespace PROG6212POE.Controllers
 {
+    [Authorize(Roles = "HR")]
     public class HrController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -23,7 +23,6 @@ namespace PROG6212POE.Controllers
             _roleManager = roleManager;
         }
 
-        // GET: HR Index
         public async Task<IActionResult> Index()
         {
             var model = new HrViewModel
@@ -40,7 +39,7 @@ namespace PROG6212POE.Controllers
             return View();
         }
 
-        // POST: Create Admin
+        //POST: Create Admin
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAdmin(Admin admin)
         {
@@ -81,7 +80,7 @@ namespace PROG6212POE.Controllers
             return View();
         }
 
-        // POST: Create Lecturer
+        //POST: Create Lecturer
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateLecturer(Lecturers lecturer)
         {
@@ -117,7 +116,7 @@ namespace PROG6212POE.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Edit Admin
+        //GET: Edit Admin
         public async Task<IActionResult> EditAdmin(int? id)
         {
             if (id == null) return NotFound();
@@ -128,7 +127,7 @@ namespace PROG6212POE.Controllers
             return View(admin);
         }
 
-        // POST: Edit Admin
+        //POST: Edit Admin
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> EditAdmin(int id, Admin admin)
         {
@@ -152,7 +151,7 @@ namespace PROG6212POE.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Edit Lecturer
+        //GET: Edit Lecturer
         public async Task<IActionResult> EditLecturer(int? id)
         {
             if (id == null) return NotFound();
@@ -163,7 +162,7 @@ namespace PROG6212POE.Controllers
             return View(lecturer);
         }
 
-        // POST: Edit Lecturer
+        //POST: Edit Lecturer
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> EditLecturer(int id, Lecturers lecturer)
         {
@@ -187,7 +186,7 @@ namespace PROG6212POE.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // POST: Delete Admin or Lecturer
+        //POST: Delete Admin or Lecturer
         [HttpPost]
         public async Task<IActionResult> Delete(int id, string type)
         {
@@ -202,7 +201,7 @@ namespace PROG6212POE.Controllers
                         return RedirectToAction(nameof(Index));
                     }
 
-                    // Delete Identity user first
+                    //Delete Identity user first
                     var identityUser = await _userManager.FindByIdAsync(admin.UserId);
                     if (identityUser != null)
                     {
@@ -214,7 +213,6 @@ namespace PROG6212POE.Controllers
                         }
                     }
 
-                    // Remove admin record
                     _context.Admins.Remove(admin);
                     await _context.SaveChangesAsync();
                 }
@@ -256,7 +254,7 @@ namespace PROG6212POE.Controllers
             }
         }
 
-        // View Claims Report in browser
+        //View Claims Report in browser
         public async Task<IActionResult> ClaimsReport()
         {
             var approvedClaims = await _context.Claims
@@ -279,11 +277,9 @@ namespace PROG6212POE.Controllers
                     ApprovedClaims = group.ToList()
                 });
             }
-
             return View(claimReports);
         }
 
-        [Authorize(Roles = "HR")]
         public IActionResult ViewPdf(string userName)
         {
             var report = _context.Claims
@@ -311,7 +307,6 @@ namespace PROG6212POE.Controllers
             };
         }
 
-        [Authorize(Roles = "HR")]
         public async Task<IActionResult> DownloadPdf(string userName)
         {
             var approvedClaims = await _context.Claims
@@ -345,6 +340,5 @@ namespace PROG6212POE.Controllers
                 ContentDisposition = Rotativa.AspNetCore.Options.ContentDisposition.Attachment
             };
         }
-
     }
 }

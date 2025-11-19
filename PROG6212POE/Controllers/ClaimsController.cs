@@ -104,7 +104,6 @@ namespace PROG6212POE.Controllers
                     await FileEncryptionHelper.EncryptFileAsync(stream, filePath);
                 }
 
-                // Save claim
                 var claim = new Claim
                 {
                     UserId = userId,

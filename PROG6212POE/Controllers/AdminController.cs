@@ -112,7 +112,6 @@ namespace PROG6212POE.Controllers
                               fileName.EndsWith(".xlsx") ? "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" :
                               "application/octet-stream";
 
-            // Serve inline for view, attachment for download
             var disposition = download ? "attachment" : "inline";
 
             Response.Headers.Add("Content-Disposition", $"{disposition}; filename=\"{fileName}\"");
